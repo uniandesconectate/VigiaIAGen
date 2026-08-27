@@ -116,24 +116,33 @@
 
 <script>
 /*
-  Este index NO necesita editarse cuando se agrega un boletín nuevo.
-  Solo sube el archivo HTML autocontenido del radar a la carpeta /radares/
-  con este formato de nombre:
+  Para publicar un boletín nuevo, DOS pasos (nunca toques este archivo):
 
-      AAAA-MM-DD_etiqueta.html
+  1. Sube el HTML autocontenido del radar a la carpeta /radares/ con
+     este formato de nombre:
 
-  Ejemplo:  2026-08-18_18ago-1sep.html
+         AAAA-MM-DD_etiqueta.html
 
-  - "AAAA-MM-DD" se usa solo para ordenar (el boletín más reciente arriba).
-  - "etiqueta" es el texto que se muestra en el panel (guiones -> espacios).
+     Ejemplo:  2026-08-18_18ago-1sep.html
+     - "AAAA-MM-DD" se usa solo para ordenar (el más reciente arriba).
+     - "etiqueta" es el texto que se muestra en el panel (guiones -> espacios).
 
-  Esta página lee el contenido de /radares/ automáticamente vía la API
-  pública de GitHub cada vez que alguien la abre.
+  2. Agrega ese mismo nombre de archivo como una línea nueva en
+     /radares.json (está en la raíz del repo, junto a este index.html).
+     Es una lista simple de texto, un nombre por línea:
+
+         [
+           "2026-08-18_18ago-1sep.html",
+           "2026-08-04_4-18-ago.html",
+           ...
+         ]
+
+     El orden dentro del archivo no importa, la página los ordena sola
+     por la fecha del nombre.
 */
 
-const OWNER = "uniandesconectate";
-const REPO  = "VigiaIAGen";
 const FOLDER = "radares";
+const MANIFEST = "radares.json"; // lista los archivos de /radares/, uno por línea
 
 const listEl = document.getElementById("sidebar-list");
 const countEl = document.getElementById("radar-count");
@@ -183,12 +192,12 @@ function selectRadar(i){
 
 async function loadRadares(){
   try {
-    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FOLDER}`);
-    if (!res.ok) throw new Error("API respondió " + res.status);
-    const files = await res.json();
-    radares = files
-      .filter(f => f.type === "file" && /\.html?$/i.test(f.name))
-      .map(f => ({ name: f.name, ...parseFilename(f.name) }))
+    const res = await fetch(MANIFEST + "?t=" + Date.now()); // evita caché vieja
+    if (!res.ok) throw new Error("No se encontró " + MANIFEST + " (" + res.status + ")");
+    const names = await res.json();
+    radares = names
+      .filter(n => /\.html?$/i.test(n))
+      .map(n => ({ name: n, ...parseFilename(n) }))
       .sort((a, b) => b.date.localeCompare(a.date)); // más reciente primero
 
     renderSidebar();
