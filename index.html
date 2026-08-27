@@ -43,6 +43,11 @@
   }
   .sidebar-label .count{color:#5a6d8f;font-weight:400;}
   .sidebar-list{list-style:none;margin:0;padding:0;}
+  .sidebar-year{
+    font-size:11px;font-weight:700;color:#5a6d8f;padding:14px 12px 6px;
+    letter-spacing:.5px;
+  }
+  .sidebar-year:first-child{padding-top:0;}
   .sidebar-item{
     display:block;cursor:pointer;padding:10px 12px;border-radius:8px;
     color:#C9D3E0;font-size:13.5px;font-weight:600;margin-bottom:3px;
@@ -119,26 +124,23 @@
   Para publicar un boletín nuevo, DOS pasos (nunca toques este archivo):
 
   1. Sube el HTML autocontenido del radar a la carpeta /radares/ con
-     este formato de nombre:
+     cualquier nombre (por consistencia, se sugiere AAAA-MM-DD_algo.html).
 
-         AAAA-MM-DD_etiqueta.html
-
-     Ejemplo:  2026-08-18_18ago-1sep.html
-     - "AAAA-MM-DD" se usa solo para ordenar (el más reciente arriba).
-     - "etiqueta" es el texto que se muestra en el panel (guiones -> espacios).
-
-  2. Agrega ese mismo nombre de archivo como una línea nueva en
-     /radares.json (está en la raíz del repo, junto a este index.html).
-     Es una lista simple de texto, un nombre por línea:
+  2. Agrega un objeto nuevo en /radares.json (raíz del repo, junto a
+     este index.html). Es una lista simple:
 
          [
-           "2026-08-18_18ago-1sep.html",
-           "2026-08-04_4-18-ago.html",
+           { "file": "2026-08-18.html", "orden": "2026-08-18", "fecha": "18 de agosto al 1 de septiembre de 2026" },
+           { "file": "2026-08-04_4-18-ago.html", "orden": "2026-08-04", "fecha": "4 al 18 de agosto de 2026" },
            ...
          ]
 
+     - "file": nombre exacto del archivo dentro de /radares/
+     - "orden": AAAA-MM-DD, solo se usa para ordenar y agrupar por año
+     - "fecha": el texto que se muestra tal cual en el panel lateral
+
      El orden dentro del archivo no importa, la página los ordena sola
-     por la fecha del nombre.
+     por el campo "orden".
 */
 
 const FOLDER = "radares";
@@ -151,16 +153,6 @@ const emptyEl = document.getElementById("content-empty");
 
 let radares = [];
 
-function parseFilename(name){
-  // "2026-08-04_4-18-ago.html" -> { date: "2026-08-04", label: "4-18 ago" }
-  const base = name.replace(/\.html?$/i, "");
-  const idx = base.indexOf("_");
-  if (idx === -1) return { date: base, label: base };
-  const date = base.slice(0, idx);
-  const label = base.slice(idx + 1).replace(/-/g, " ");
-  return { date, label };
-}
-
 function renderSidebar(){
   listEl.innerHTML = "";
   countEl.textContent = radares.length ? `(${radares.length})` : "";
@@ -168,11 +160,20 @@ function renderSidebar(){
     listEl.innerHTML = '<li class="sidebar-status">Aún no hay boletines publicados.</li>';
     return;
   }
+  let lastYear = null;
   radares.forEach((r, i) => {
+    const year = r.orden.slice(0, 4);
+    if (year !== lastYear){
+      const yearHeader = document.createElement("li");
+      yearHeader.className = "sidebar-year";
+      yearHeader.textContent = year;
+      listEl.appendChild(yearHeader);
+      lastYear = year;
+    }
     const li = document.createElement("li");
     li.className = "sidebar-item" + (i === 0 ? " active" : "");
-    li.dataset.search = (r.label + " " + r.date).toLowerCase();
-    li.innerHTML = `Boletín<span class="range">${r.label}</span>`;
+    li.dataset.search = (r.fecha + " " + r.orden).toLowerCase();
+    li.innerHTML = `Boletín<span class="range">${r.fecha}</span>`;
     li.onclick = () => selectRadar(i);
     listEl.appendChild(li);
   });
@@ -185,8 +186,8 @@ function selectRadar(i){
   });
   emptyEl.style.display = "none";
   frame.style.display = "block";
-  frame.src = `${FOLDER}/${r.name}`;
-  location.hash = r.name;
+  frame.src = `${FOLDER}/${r.file}`;
+  location.hash = r.file;
   if (window.innerWidth <= 960) sidebarEl.classList.remove("open");
 }
 
@@ -194,17 +195,14 @@ async function loadRadares(){
   try {
     const res = await fetch(MANIFEST + "?t=" + Date.now()); // evita caché vieja
     if (!res.ok) throw new Error("No se encontró " + MANIFEST + " (" + res.status + ")");
-    const names = await res.json();
-    radares = names
-      .filter(n => /\.html?$/i.test(n))
-      .map(n => ({ name: n, ...parseFilename(n) }))
-      .sort((a, b) => b.date.localeCompare(a.date)); // más reciente primero
+    radares = await res.json();
+    radares.sort((a, b) => b.orden.localeCompare(a.orden)); // más reciente primero
 
     renderSidebar();
 
     if (radares.length > 0){
       const hashName = decodeURIComponent(location.hash.replace("#", ""));
-      const idx = Math.max(0, radares.findIndex(r => r.name === hashName));
+      const idx = Math.max(0, radares.findIndex(r => r.file === hashName));
       selectRadar(idx);
     }
   } catch (err){
