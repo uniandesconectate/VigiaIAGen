@@ -1,94 +1,221 @@
 <!DOCTYPE html>
-<html lang="es" class="h-100">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vigía Tecnológica - DIDACTA</title>
-    <!-- Bootstrap 5 CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vigía IA Gen — Radares</title>
+<style>
+  :root{
+    --navy:#0B1B3A;
+    --navy-2:#122a52;
+    --teal:#12A594;
+    --teal-2:#0E8074;
+    --paper:#F4F6F8;
+    --ink:#0B1B3A;
+    --muted:#5B6B82;
+    --line:#E3E8EE;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--paper);color:var(--ink);}
+
+  .app{display:flex;height:100vh;}
+
+  .sidebar{
+    width:280px;flex-shrink:0;background:var(--navy);color:#fff;
+    padding:22px 18px 24px;height:100vh;overflow-y:auto;box-sizing:border-box;
+  }
+  .sidebar-brand{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding:0 4px;}
+  .sidebar-brand svg{width:34px;height:34px;flex-shrink:0;}
+  .sidebar-brand span{font-weight:800;font-size:16px;letter-spacing:.5px;line-height:1.15;}
+  .sidebar-brand span b{display:block;color:var(--teal);}
+  .sidebar-search{position:relative;margin-bottom:18px;}
+  .sidebar-search input{
+    width:100%;box-sizing:border-box;background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;
+    font-family:inherit;font-size:13px;padding:9px 12px 9px 32px;outline:none;
+  }
+  .sidebar-search input::placeholder{color:#9fb0c9;}
+  .sidebar-search input:focus{border-color:var(--teal);}
+  .sidebar-search svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:#9fb0c9;pointer-events:none;}
+  .sidebar-label{
+    font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+    color:#7a8bab;margin:18px 4px 8px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .sidebar-label .count{color:#5a6d8f;font-weight:400;}
+  .sidebar-list{list-style:none;margin:0;padding:0;}
+  .sidebar-item{
+    display:block;cursor:pointer;padding:10px 12px;border-radius:8px;
+    color:#C9D3E0;font-size:13.5px;font-weight:600;margin-bottom:3px;
+    transition:background .15s,color .15s;line-height:1.35;
+  }
+  .sidebar-item .range{display:block;font-size:11px;font-weight:400;color:#8ea0bd;margin-top:2px;}
+  .sidebar-item:hover{background:rgba(255,255,255,.08);color:#fff;}
+  .sidebar-item.active{background:var(--teal);color:#fff;}
+  .sidebar-item.active .range{color:#E4FBF7;}
+  .sidebar-item.hidden{display:none;}
+  .sidebar-status{font-size:12px;color:#7a8bab;padding:10px 12px;}
+  .sidebar-toggle{
+    display:none;position:fixed;top:14px;left:14px;z-index:20;
+    background:var(--navy);color:#fff;border:none;border-radius:8px;
+    width:38px;height:38px;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .sidebar-toggle svg{width:20px;height:20px;}
+
+  .content{flex:1;min-width:0;height:100vh;position:relative;background:#fff;}
+  .content iframe{width:100%;height:100%;border:none;display:block;}
+  .content-empty{
+    display:flex;align-items:center;justify-content:center;height:100%;
+    color:var(--muted);font-size:14px;text-align:center;padding:40px;
+  }
+
+  @media (max-width:960px){
+    .sidebar{
+      position:fixed;left:0;top:0;transform:translateX(-100%);
+      z-index:15;transition:transform .2s;width:82vw;max-width:300px;
+    }
+    .sidebar.open{transform:translateX(0);}
+    .sidebar-toggle{display:flex;}
+  }
+</style>
 </head>
-<body class="bg-black text-white min-vh-100 d-flex flex-column justify-content-between">
+<body>
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir índice">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+</button>
+<div class="app">
 
-    <!-- Header con Logo en la esquina superior izquierda al 30% -->
-    <header class="p-4">
-        <div class="container-fluid">
-            <img src="img/DIDACTA_horizontal_blanco.png" 
-                 alt="Logo DIDACTA" 
-                 style="width: 30%;" 
-                 class="img-fluid d-block">
-        </div>
-    </header>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="26" r="22" fill="#0B1B3A" stroke="#12A594" stroke-width="2"/>
+        <circle cx="32" cy="26" r="16" stroke="#12A594" stroke-width="1" opacity=".5"/>
+        <circle cx="32" cy="26" r="9" stroke="#12A594" stroke-width="1" opacity=".5"/>
+        <path d="M32 26 L32 12 A14 14 0 0 1 44 33 Z" fill="#12A594" opacity=".55"/>
+        <circle cx="32" cy="26" r="2.5" fill="#12A594"/>
+        <rect x="20" y="50" width="24" height="4" rx="2" fill="#0B1B3A"/>
+        <rect x="29" y="46" width="6" height="6" fill="#0B1B3A"/>
+      </svg>
+      <span>VIGÍA<b>IA GEN</b></span>
+    </div>
+    <div class="sidebar-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="sidebar-search-input" placeholder="Buscar boletín...">
+    </div>
+    <div class="sidebar-label">Boletines <span class="count" id="radar-count"></span></div>
+    <ul class="sidebar-list" id="sidebar-list">
+      <li class="sidebar-status">Cargando radares…</li>
+    </ul>
+  </aside>
 
-    <!-- Contenido Principal -->
-    <main class="container my-auto py-5">
-        <div class="row text-center mb-5">
-            <div class="col-12">
-                <span class="badge rounded-pill bg-dark border border-info text-info px-3 py-2 text-uppercase mb-3 font-monospace">
-                    <i class="bi bi-radar me-1"></i> Sistema de Vigilancia Activo
-                </span>
-                <h1 class="display-4 fw-bold text-white text-uppercase tracking-wide">
-                    Vigía IA GEN
-                </h1>
-                <p class="text-secondary col-lg-8 mx-auto fs-5">
-                    Noticias, investigaciones y tendencias sobre inteligencia artificial en educación superior.
-                </p>
-            </div>
-        </div>
+  <div class="content" id="content">
+    <div class="content-empty" id="content-empty">Selecciona un boletín del panel izquierdo.</div>
+    <iframe id="content-frame" style="display:none;"></iframe>
+  </div>
 
-        <!-- Tarjetas de Boletines -->
-        <div class="row g-4 justify-content-center">
-            
-            <!-- Card 1 -->
-            <div class="col-md-6 col-lg-5">
-                <div class="card bg-dark text-white border-info border-opacity-50 shadow-lg h-100 rounded-4">
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <span class="badge bg-info text-dark font-monospace fw-bold">EDICIÓN #01</span>
-                            <i class="bi bi-cpu text-info fs-3"></i>
-                        </div>
-                        <h2 class="card-title h4 fw-bold text-white mb-3">Semana del 27 de julio al 3 de agosto de 2026</h2>
-                        <p class="card-text text-secondary flex-grow-1">
-                            Estos hallazgos orientan decisiones institucionales informadas para aprovechar el potencial de la IA y minimizar riesgos académicos, éticos y pedagógicos.
-                        </p>
-                        <a href="https://claude.ai/public/artifacts/1c9ad665-9faa-45d4-9b3a-6b0d0a7b96e8" class="btn btn-outline-info fw-bold rounded-pill mt-4 d-flex align-items-center justify-content-center gap-2">
-                            <span>Acceder al Boletín</span>
-                            <i class="bi bi-arrow-right-circle-fill"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+</div>
 
-            <!-- Card 2 -->
-            <div class="col-md-6 col-lg-5">
-                <div class="card bg-dark text-white border-info border-opacity-50 shadow-lg h-100 rounded-4">
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <span class="badge bg-info text-dark font-monospace fw-bold">EDICIÓN #02</span>
-                            <i class="bi bi-shield-check text-info fs-3"></i>
-                        </div>
-                        <h2 class="card-title h4 fw-bold text-white mb-3">Quincena del 4 al 18 de agosto de 2026</h2>
-                        <p class="card-text text-secondary flex-grow-1">
-                            Estos hallazgos orientan decisiones institucionales informadas para aprovechar el potencial de la IA y minimizar riesgos académicos, éticos y pedagógicos.
-                        </p>
-                        <a href="https://claude.ai/public/artifacts/66d9e177-224b-48fe-9ad1-916351f6d7c0" class="btn btn-outline-info fw-bold rounded-pill mt-4 d-flex align-items-center justify-content-center gap-2">
-                            <span>Acceder al Boletín</span>
-                            <i class="bi bi-arrow-right-circle-fill"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+<script>
+/*
+  Este index NO necesita editarse cuando se agrega un boletín nuevo.
+  Solo sube el archivo HTML autocontenido del radar a la carpeta /radares/
+  con este formato de nombre:
 
-        </div>
-    </main>
+      AAAA-MM-DD_etiqueta.html
 
-    <!-- Footer -->
-    <footer class="text-center py-4 text-secondary border-top border-dark small">
-        <p class="m-0">&copy; 2026 DIDACTA - Universidad de los Andes</p>
-    </footer>
+  Ejemplo:  2026-08-18_18ago-1sep.html
 
-    <!-- Bootstrap 5 JS Bundle CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  - "AAAA-MM-DD" se usa solo para ordenar (el boletín más reciente arriba).
+  - "etiqueta" es el texto que se muestra en el panel (guiones -> espacios).
+
+  Esta página lee el contenido de /radares/ automáticamente vía la API
+  pública de GitHub cada vez que alguien la abre.
+*/
+
+const OWNER = "uniandesconectate";
+const REPO  = "VigialAGen";
+const FOLDER = "radares";
+
+const listEl = document.getElementById("sidebar-list");
+const countEl = document.getElementById("radar-count");
+const frame = document.getElementById("content-frame");
+const emptyEl = document.getElementById("content-empty");
+
+let radares = [];
+
+function parseFilename(name){
+  // "2026-08-04_4-18-ago.html" -> { date: "2026-08-04", label: "4-18 ago" }
+  const base = name.replace(/\.html?$/i, "");
+  const idx = base.indexOf("_");
+  if (idx === -1) return { date: base, label: base };
+  const date = base.slice(0, idx);
+  const label = base.slice(idx + 1).replace(/-/g, " ");
+  return { date, label };
+}
+
+function renderSidebar(){
+  listEl.innerHTML = "";
+  countEl.textContent = radares.length ? `(${radares.length})` : "";
+  if (radares.length === 0){
+    listEl.innerHTML = '<li class="sidebar-status">Aún no hay boletines publicados.</li>';
+    return;
+  }
+  radares.forEach((r, i) => {
+    const li = document.createElement("li");
+    li.className = "sidebar-item" + (i === 0 ? " active" : "");
+    li.dataset.search = (r.label + " " + r.date).toLowerCase();
+    li.innerHTML = `Boletín<span class="range">${r.label}</span>`;
+    li.onclick = () => selectRadar(i);
+    listEl.appendChild(li);
+  });
+}
+
+function selectRadar(i){
+  const r = radares[i];
+  document.querySelectorAll("#sidebar-list .sidebar-item").forEach((el, idx) => {
+    el.classList.toggle("active", idx === i);
+  });
+  emptyEl.style.display = "none";
+  frame.style.display = "block";
+  frame.src = `${FOLDER}/${r.name}`;
+  location.hash = r.name;
+  if (window.innerWidth <= 960) sidebarEl.classList.remove("open");
+}
+
+async function loadRadares(){
+  try {
+    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FOLDER}`);
+    if (!res.ok) throw new Error("API respondió " + res.status);
+    const files = await res.json();
+    radares = files
+      .filter(f => f.type === "file" && /\.html?$/i.test(f.name))
+      .map(f => ({ name: f.name, ...parseFilename(f.name) }))
+      .sort((a, b) => b.date.localeCompare(a.date)); // más reciente primero
+
+    renderSidebar();
+
+    if (radares.length > 0){
+      const hashName = decodeURIComponent(location.hash.replace("#", ""));
+      const idx = Math.max(0, radares.findIndex(r => r.name === hashName));
+      selectRadar(idx);
+    }
+  } catch (err){
+    listEl.innerHTML = `<li class="sidebar-status">No se pudo cargar el listado (${err.message}). Verifica tu conexión o inténtalo de nuevo.</li>`;
+  }
+}
+
+document.getElementById("sidebar-search-input").addEventListener("input", (e) => {
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll("#sidebar-list .sidebar-item").forEach(item => {
+    item.classList.toggle("hidden", q.length > 0 && !item.dataset.search.includes(q));
+  });
+});
+
+const sidebarEl = document.getElementById("sidebar");
+document.getElementById("sidebar-toggle").addEventListener("click", () => {
+  sidebarEl.classList.toggle("open");
+});
+
+loadRadares();
+</script>
 </body>
 </html>
