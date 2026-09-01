@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vigía IA Gen — 25 al 31 de agosto</title>
+<style>
+  :root{
+    --navy:#0B1B3A;
+    --navy-2:#122a52;
+    --teal:#12A594;
+    --teal-2:#0E8074;
+    --paper:#F4F6F8;
+    --ink:#0B1B3A;
+    --muted:#5B6B82;
+    --line:#E3E8EE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .page{max-width:1180px;margin:0 auto;background:#fff;box-shadow:0 0 40px rgba(11,27,58,.08);}
+  header{
+    background:var(--navy);
+    color:#fff;
+    padding:32px 40px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 15% 120%, rgba(18,165,148,.25), transparent 55%);
+    pointer-events:none;
+  }
+  .brand{display:flex;align-items:center;gap:18px;position:relative;z-index:1;}
+  .brand-mark{width:64px;height:64px;flex-shrink:0;}
+  .brand h1{margin:0;font-size:34px;line-height:1;letter-spacing:1px;font-weight:800;}
+  .brand h1 span{display:block;color:var(--teal);font-size:34px;}
+  .header-right{position:relative;z-index:1;text-align:right;max-width:420px;}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--teal);color:#fff;font-weight:700;font-size:13px;letter-spacing:.5px;
+    padding:7px 16px;border-radius:20px;margin-bottom:10px;
+  }
+  .header-right h2{margin:2px 0 6px;font-size:20px;}
+  .header-right p{margin:0;color:#C9D3E0;font-size:13.5px;line-height:1.5;}
+  .section-title{
+    display:flex;align-items:center;gap:10px;
+    background:var(--navy);color:#fff;padding:12px 40px;
+    font-size:17px;font-weight:700;letter-spacing:.5px;
+  }
+  .section-title .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);}
+  .findings{padding:0 40px;}
+  .finding{
+    display:grid;grid-template-columns:74px 1fr 230px 130px;gap:20px;
+    align-items:start;padding:26px 0;border-bottom:1px solid var(--line);
+  }
+  .finding-icon{
+    width:64px;height:64px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;
+  }
+  .finding-icon svg{width:32px;height:32px;}
+  .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:6px;
+    background:var(--navy);color:#fff;font-weight:800;font-size:13px;margin-right:8px;
+    flex-shrink:0;
+  }
+  .finding h3{margin:0 0 10px;font-size:17px;line-height:1.35;display:flex;align-items:flex-start;gap:0;}
+  .finding h3 a{color:var(--teal-2);text-decoration:none;}
+  .finding h3 a:hover{text-decoration:underline;}
+  ul.resumen-list{margin:0 0 10px;padding-left:19px;}
+  ul.resumen-list li{font-size:13.5px;color:#33425c;line-height:1.55;margin-bottom:5px;}
+  .finding p.relevancia{margin:0;font-size:13px;font-weight:700;color:var(--teal-2);line-height:1.5;}
+  .meta{font-size:12.5px;color:var(--muted);line-height:1.6;padding-top:2px;}
+  .meta b{color:var(--ink);}
+  .qr-box{display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .qr-img{width:88px;height:88px;border:1px solid var(--line);border-radius:6px;padding:4px;background:#fff;}
+  .qr-link{font-size:10.5px;color:var(--teal-2);text-decoration:none;text-align:center;word-break:break-all;max-width:130px;}
+  .qr-link:hover{text-decoration:underline;}
+  .footer{
+    display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:0;
+    background:var(--navy);color:#fff;margin-top:10px;
+  }
+  .footer > div{padding:28px 32px;}
+  .footer h4{margin:0 0 16px;font-size:13.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--teal);}
+  .ideas{border-right:1px solid rgba(255,255,255,.12);}
+  .idea-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;font-size:13px;line-height:1.5;color:#DCE3EE;}
+  .idea-row svg{width:17px;height:17px;flex-shrink:0;color:var(--teal);margin-top:1px;}
+  .why{border-right:1px solid rgba(255,255,255,.12);}
+  .why p{font-size:13px;line-height:1.6;color:#C9D3E0;margin:0 0 14px;}
+  .why-cta{font-size:12.5px;font-weight:700;color:var(--teal);}
+  .cats{display:flex;flex-direction:column;}
+  .cat-row{display:flex;gap:10px;align-items:center;margin-bottom:11px;font-size:12.5px;color:#DCE3EE;}
+  .cat-swatch{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .cat-swatch svg{width:13px;height:13px;color:#fff;}
+  .bottom-note{text-align:center;font-size:11.5px;color:var(--muted);padding:18px 40px 26px;}
+  @media (max-width:900px){
+    .finding{grid-template-columns:1fr;}
+    .finding-icon{width:48px;height:48px;}
+    .footer{grid-template-columns:1fr;}
+    .ideas, .why{border-right:none;border-bottom:1px solid rgba(255,255,255,.12);}
+    header{padding:26px 20px;}
+    .findings{padding:0 20px;}
+    .section-title{padding:12px 20px;}
+    .bottom-note{padding:16px 20px 22px;}
+  }
+</style>
+<div class="page">
+  <header>
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="26" r="22" fill="#0B1B3A" stroke="#12A594" stroke-width="2"/>
+        <circle cx="32" cy="26" r="16" stroke="#12A594" stroke-width="1" opacity=".5"/>
+        <circle cx="32" cy="26" r="9" stroke="#12A594" stroke-width="1" opacity=".5"/>
+        <path d="M32 26 L32 12 A14 14 0 0 1 44 33 Z" fill="#12A594" opacity=".55"/>
+        <circle cx="32" cy="26" r="2.5" fill="#12A594"/>
+        <rect x="20" y="50" width="24" height="4" rx="2" fill="#0B1B3A"/>
+        <rect x="29" y="46" width="6" height="6" fill="#0B1B3A"/>
+      </svg>
+      <h1>VIGÍA<span>IA GEN</span></h1>
+    </div>
+    <div class="header-right">
+      <div class="pill">🔊 RADAR QUINCENAL</div>
+      <h2>Semana del 25 al 31 de agosto de 2026</h2>
+      <p>Noticias, investigaciones y tendencias sobre inteligencia artificial en educación superior.</p>
+    </div>
+  </header>
+  <div class="section-title"><span class="dot"></span> HALLAZGOS PARA ESTAR ATENTOS</div>
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">1</span><a href="https://aiandeducation.mit.edu/report/" target="_blank" rel="noopener">El MIT publica su informe institucional sobre el uso de la IA en la docencia, el aprendizaje y la formación en investigación</a></h3>
+        <ul class="resumen-list">
+          <li>El comité ad hoc del MIT documenta efectos preocupantes ya observables: caída en la asistencia a horas de oficina y a grupos de estudio presenciales, erosión de formatos de evaluación como los problem sets y los exámenes para la casa, y confusión estudiantil por la inconsistencia de políticas de IA entre cursos.</li>
+          <li>También identifica oportunidades: aprendizaje personalizado mediante tutoría con IA, proyectos estudiantiles más ambiciosos gracias a la asistencia de código, y nuevas formas de exploración en investigación.</li>
+          <li>Propone ocho principios rectores, entre ellos humildad ante una tecnología en evolución, audacia en la respuesta institucional, priorizar el florecimiento humano, apostar por el aprendizaje auténtico y &quot;aumentar&quot; en lugar de &quot;automatizar&quot;.</li>
+          <li>Organiza sus recomendaciones en tres frentes: adaptar los procesos educativos (revisión curricular, nuevas evaluaciones, aprendizaje experiencial), preservar la comunidad universitaria (vida residencial, alfabetización responsable en IA) y establecer procesos de mejora continua, soporte y acceso equitativo a la tecnología.</li>
+          <li>Cobertura posterior en Forbes (25 de agosto) y Dataconomy (23 de agosto) enmarca el informe como un llamado a repensar estructuralmente la universidad, no solo el aula, ante la IA generativa.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Es, junto con el informe de EDUCAUSE de junio, el documento institucional más citado del año sobre IA en educación superior en Estados Unidos. A diferencia de guías centradas en integridad académica, plantea el problema como uno de diseño curricular y de comunidad universitaria, con recomendaciones organizacionales replicables.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Lineamientos y políticas institucionales</div>
+        <div><b>Fuente:</b> MIT — Ad Hoc Committee on AI Use in Teaching, Learning, and Research Training</div>
+        <div><b>Fecha:</b> 13 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABD0lEQVR4nK2VwY1cMQxDnwZ7pzqY/sv6HZAVMIfNJZscBkJ0sgWItkiLnvJH5MWP+CCRmcmyM8nMfFLyd6K1PFRL6xtGBlYOkPms5Ed8AeRhed4fH/vPxPJkfcdQgZW7qCeM8YJ/bxZ8wKBtLdzfywuGawNIBvl2D6kUQ82tl6+QMVoUaC6c0qqVBcU6copskGW1unGq1hR65uNFMiuqgXKcOb+LNyhs98SpVeNSdOejEm2h5qbLNBpBMCinmaO1Kskq9KZLVokBBvaky/ewWmDqnmbulZlBrpZw81PcutiF+qbtiwxBu2J2754spTxV/dx9Pe+wmDm99W9fb94oQcdeZjYpD7yDTn/Df/j3fwFCnbkuHgPOGAAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://aiandeducation.mit.edu/report/" target="_blank" rel="noopener">aiandeducation.mit.edu/report/</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#2563EB"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#2563EB">2</span><a href="https://www.malaymail.com/news/singapore/2026/08/11/national-university-of-singapore-mandates-ai-courses-for-all-students-gives-free-access-to-chatgpt-for-learners-and-staff/230931" target="_blank" rel="noopener">La Universidad Nacional de Singapur vuelve obligatorios los cursos de IA para el pregrado y da acceso gratuito a ChatGPT Edu</a></h3>
+        <ul class="resumen-list">
+          <li>Desde agosto de 2026, todo estudiante de pregrado de la NUS debe cursar contenido obligatorio de IA: un módulo transversal (&quot;Applied Generative AI: From Prompting to Evaluation&quot;) más cursos integrados por facultad, incluyendo asignaturas disciplinares como &quot;Artificial Intelligence and Public Policy&quot; para ciencia política.</li>
+          <li>La medida afecta a más del 85 % de la población de pregrado de la universidad.</li>
+          <li>Desde el 31 de agosto de 2026 —hoy—, estudiantes, docentes y personal reciben acceso gratuito a ChatGPT Edu, con límites de mensajes más altos y privacidad reforzada frente al ChatGPT estándar.</li>
+          <li>La NUS desarrolla además siete herramientas propias de IA para docencia, incluyendo generadores de simulaciones y sistemas de tutoría socrática para computación y otras disciplinas.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Es el caso más completo del período de integración curricular obligatoria combinada con infraestructura institucional gratuita, y confirma —junto con Indiana/Kelley (agosto) y Washington (agosto)— una tendencia ya señalada en informes previos: la alfabetización en IA se traslada al inicio de la carrera como competencia transversal, no como electiva.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Currículo y alfabetización en IA</div>
+        <div><b>Fuente:</b> Malay Mail / National University of Singapore</div>
+        <div><b>Fecha:</b> 11 de agosto de 2026 (acceso a ChatGPT Edu desde el 31 de agosto de 2026)</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAADcAQAAAAAzIfIsAAACj0lEQVR4nMWZzc0cMQxDnz/kTnew/Ze1HTxXwBw8SC75AxZC5irAhE2JojSr/PY7X7+PwQfBs9Zi7XM4+yzOWWutxVlrfXLsn4LY2hpqopCAsdWpe3IWbOzinLzioX3BWZ8d+4fvGwBvVkvPigT2+9Nj/yH4Iqx1NucA5+xMYmKrggWrpQmd5HO5wV8ENkxh0raNJWot2pS2HcO0wdISAONTN4OYbVtIQWvapm3MGJ+UmEAIbVopEckgptVI0tqbtFGcw7SxSAwJIWAT5vj8YvE6DyTUnCabk7XHNKHt5ZQQaYpJwmB9ahprYtqKSgId5DNqoiGJGIzDtWJSmvjkcGND20Hto2jpQ631igKTmtCSNGKjhqYtGeWTJkUtGBRAB+9ZA6HFp5+0bc0kn8975lFek7Q4qH1tr+QSKleM2upgLwvXX+aHu/aCT2o8VYPk+oTb1sygT0BNsV4hvKg6qAmWejMoVCmh1/jNaZ9Qg4kAwQYG+ydKaVBNGypNM6m3pnqbKE3vy6YyqAnWJiJPJpVG0lEdqpjEC3TbZ9tJHw+XRYumNE1glE9zHzeX0scC1jkd+gZkuenanrLykk1Xj3OzYModALUmQEjN3CyITUn0ovY6ejI6lyHVhCdxe+84WSuGKA1PiYh0dM6+4tqQplUsCTB6T7z8pVKTPLOhY5jL17n7hGw8YQvbs/3o2L/722ttn6HzrsVmZ4dGSNIgNHks7qQHu8PYbdu1PyeIMT6/zlorIWe/uw/0LIDDyhSfX7Se92YHDOwXsAm+5/RWrNxtFNwFylXduX0CcFJei72TekoQ7dzbAtnrkMCbvbvfb17hzO41m6vqhjx2oZ3cJwCSEK/ISmrJnE9Y/+G/w3cGzskLXLAd0QAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.malaymail.com/news/singapore/2026/08/11/national-university-of-singapore-mandates-ai-courses-for-all-students-gives-free-access-to-chatgpt-for-learners-and-staff/230931" target="_blank" rel="noopener">www.malaymail.com/news/singapore/2026/08/11/national-university-of-singapore-mandates-ai-courses-for-all-students-gives-free-access-to-chatgpt-for-learners-and-staff/230931</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#0D9488"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#0D9488">3</span><a href="https://oit.duke.edu/news/expanded-chatgpt-edu-now-available-duke-no-cost/" target="_blank" rel="noopener">Duke y la Universidad de Colorado Denver amplían el acceso gratuito a ChatGPT Edu con capacidades de nivel Plus</a></h3>
+        <ul class="resumen-list">
+          <li>Duke elimina los cargos por consumo de ChatGPT Edu y ofrece a toda la comunidad elegible capacidades equivalentes al plan pago ChatGPT Plus: razonamiento avanzado con GPT-5.6, carga ampliada de archivos, generación de imágenes, funciones de voz y proyectos personalizables, además de acceso a Codex para cuentas estándar.</li>
+          <li>OpenAI garantiza contractualmente que los datos de Duke no se usan para entrenar sus modelos.</li>
+          <li>CU Denver habilitó desde el 5 de agosto el acceso a ChatGPT Edu para estudiantes elegibles del College of Liberal Arts and Sciences, sin costo para el usuario final.</li>
+          <li>Ambos casos se suman a la lista ya amplia de universidades estadounidenses (CSU, UT Austin, Stanford, entre otras cubiertas en informes previos) que financian centralmente el acceso a modelos de frontera para evitar una brecha por capacidad de pago entre estudiantes.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Confirma que, en Estados Unidos, la discusión ya no es si se financia el acceso institucional a IA generativa sino qué nivel de servicio (gratuito básico vs. equivalente a plan pago) ofrece cada universidad, y cómo se gobiernan los datos de la comunidad.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Herramientas y plataformas</div>
+        <div><b>Fuente:</b> Duke University — Office of Information Technology / CU Denver — CLAS Newsroom</div>
+        <div><b>Fecha:</b> 24 de agosto de 2026 (Duke) y 5 de agosto de 2026 (CU Denver)</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJwAAACcAQAAAACiw//gAAABiklEQVR4nLWXvY0cUQyDPx02pzqY/suaDqgK6OBdYHjtYE/jlwxAQIT+KGkqvL35esfgA3CqaprprqKYqvrE/G/gizAauOHCEGbL+cUU42q64RqmPjP/F6hLuRQK/cT8z/cCYAw3t+ZHLr2DCiOanh4GZc1ZbvBvQIOXnCRJSCybKEm2nF8zTGfmooGbnnUvYRDgyEJY2sfuCCFLjqIY7/OpCJsYOwGt84kTHKQ4CVYe8DNSUAgiWFpzVvruVKhTq0l5r81BmMnR5VW67nU+bRMEBD+UT5Fg24kC2fdnpUynDBcw8qxnCBGCBGPb0l7vnPa0E59RIj3Rn7EMwsfjfY0MlmMFo+Pz2k+jbxUZ2+xjf40M0MKyytnfDJVpAbiPMK9ZaxNzCiRAkuMn8mkhJ3GUhP1cwgQghDjmgRqRJNY3tR0/0584AIpkO0/suDiR7PjE/8A+Mo4D6Hz2sZ8bjMnQ07amsr6TAYarabUudeuBOyRxzsaM7Xi/318UeNJhaDPX/vau//Df8Qu8xFDasStMIgAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://oit.duke.edu/news/expanded-chatgpt-edu-now-available-duke-no-cost/" target="_blank" rel="noopener">oit.duke.edu/news/expanded-chatgpt-edu-now-available-duke-no-cost/</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#0EA5E9"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#0EA5E9">4</span><a href="https://openai.com/index/chatgpt-for-academic-researchers/" target="_blank" rel="noopener">OpenAI abre &quot;ChatGPT for Academic Researchers&quot;, acceso gratuito a modelos de frontera para investigación científica</a></h3>
+        <ul class="resumen-list">
+          <li>El programa da acceso gratuito a modelos de frontera —incluidas variantes de GPT-5.6, límites de uso ampliados y ventanas de contexto mayores— a investigadores calificados de universidades con actividad investigativa sustancial.</li>
+          <li>Cada investigador aprobado puede invitar hasta cuatro colaboradores institucionales.</li>
+          <li>Incluye 75 &quot;habilidades&quot; especializadas en ciencias de la vida (genética, genómica, secuenciación, análisis unicelular, modelado de proteínas, descubrimiento de fármacos), además de formación especializada, soporte de investigación e integraciones con bases de datos científicas.</li>
+          <li>Arranca con 10.000 investigadores en el verano boreal de 2026 y proyecta llegar a 100.000 en 2027, dentro del compromiso de OpenAI de USD 250 millones hasta 2027 para investigación científica externa.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Desplaza el foco de la disputa entre proveedores de IA generativa de la docencia hacia la investigación científica, un frente donde las políticas institucionales suelen estar menos desarrolladas que las de docencia y evaluación.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Herramientas y plataformas / Investigación</div>
+        <div><b>Fuente:</b> OpenAI</div>
+        <div><b>Fecha:</b> 29 de julio de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABRklEQVR4nK2WsY0lMQxDnwabUx1M/2W5A6oCXvAXG/zb4N/oHNkCRFAwKanC25nrPQIfhqaqoIeimKr6NPHv0BdhRq6AIMxzrIspmFGlZpj6PPEXXgAd0/9K4veQXPQh9w4LJ46Mk8SJ/Rir3OCfZ8NzrEtJoBE3KMmyRsugBIKe88IvMhFCMVlgxUEm2Dj2hldEsB3Hgl2Nim1BEltZ1HhxkASeqht23ma4OQijCr3BEs1wY0DT3ujLBuIoRmw8hKNIMiFyWPkRQFDi3KNZ+BFHQXZCopXuL3GGA7RmaG3+cW5wZwa4Xfj5HCpDC/cYUWnORqvS931EsdIXQMAmQFZ9Ionxy+SxF5r4moakoF0YtJ5DMU6IN7p/tVMcSTZo1b8A1AXTiLPrX4Ap3K7UvdoBFJgSMGnOaj4CtizFRBt91X/cC/8ArCLyhS/CTdAAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://openai.com/index/chatgpt-for-academic-researchers/" target="_blank" rel="noopener">openai.com/index/chatgpt-for-academic-researchers/</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#7C2D12"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#7C2D12">5</span><a href="https://www.chronicle.com/article/the-academic-integrity-council-cant-keep-up-with-ai" target="_blank" rel="noopener">The Chronicle of Higher Education documenta el colapso operativo de los comités de integridad académica frente a la IA</a></h3>
+        <ul class="resumen-list">
+          <li>Los comités de integridad académica en Estados Unidos están desbordados: Chapman University registra un incremento del 400 % en violaciones desde la pandemia; Grinnell College, un alza del 170 % en tres años académicos.</li>
+          <li>Menos del 50 % del profesorado encuestado logra distinguir texto humano de texto generado por IA, y los propios detectores de IA no son confiables como evidencia.</li>
+          <li>Grinnell separa las faltas de honestidad académica de las faltas a la política de curso y prioriza transparencia y citación; Cornell implementa un proceso de &quot;aceptación de responsabilidad&quot; para faltas menores de primera vez; Penn State centraliza la adjudicación para liberar recursos hacia prevención.</li>
+          <li>La experta en integridad académica Sarah Elaine Eaton señala que las políticas carecen de definiciones claras de mal uso de IA, lo que vuelve casi imposible la aplicación consistente de sanciones.</li>
+          <li>La conclusión del artículo es que el modelo tradicional de comité disciplinario podría volverse obsoleto frente a modelos preventivos centrados en el rediseño de la evaluación.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Aporta evidencia cuantitativa (aumentos de 170–400 % en casos) que respalda, desde la operación disciplinaria, la misma conclusión que ya señalaban informes previos sobre Manchester y otras universidades: el etiquetado y rediseño de la evaluación es más sostenible que la detección punitiva.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Evaluación e integridad académica</div>
+        <div><b>Fuente:</b> The Chronicle of Higher Education</div>
+        <div><b>Fecha:</b> 13 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACsAQAAAADOSnp1AAABsklEQVR4nLWXwW0lMQxDn4Pc6Q5+/2VNB3QFbw/+OQSbSxZaA8YAOggETZGaJT+c8/FTFX5ZPmst1jlr7b33OeustX7b5Ocy1UpIjNBW26HepRWKmJiWod63vJtIzsPpPzf563zez4t94MWT1bHeVC/HUSXO8b26od9KG4beUrVNaqla1SncbLxgzyY8bJyZHSxCpSRtgE5x0qal1qq0ZIoThEATQ2uxyRRur+qaCiSRMdxGtGJMaBjzE31DtgBN0incTb/GkRhpM6Vvz+th4+ZhE4AzNpeYBpWmhZI5/86XYb3J6ZS+P8JJ2IuQdTzrxZ7yWGO5eOHqkbHZIYFoMG0Z9BNbWopiSMuYnzSGy0a8+p7rraCE9NqJc3NZ0gaLsWZQ31Zys/iO+yTfEKkKsUKm/AQFo02ad7yNZdp9yca31YZM5iXSJnfvYZDvaksiqa04h9vWAOFqBTrkJ58hHNzPZsMpHs7UrglYkjRCBzPtxsIlGYPYqZz/4CzYnOMr6/F07TOUDavsci/hyYYztGve3i/oYbsIh3Roj33vbBGx2Ml9EGgoucGpTPn3+o//xX8AF6zMC+dCnn8AAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.chronicle.com/article/the-academic-integrity-council-cant-keep-up-with-ai" target="_blank" rel="noopener">www.chronicle.com/article/the-academic-integrity-council-cant-keep-up-with-ai</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">6</span><a href="https://www.nature.com/articles/d41586-026-02494-5" target="_blank" rel="noopener">Nature: &quot;la IA no está lista para investigar por sí misma&quot;</a></h3>
+        <ul class="resumen-list">
+          <li>El artículo revisa un sistema agéntico que logró desarrollar conceptos derivados de dos papers de ciencias de la computación, pero cuyos autores originales no quedaron impresionados con los resultados.</li>
+          <li>Concluye que, pese a avances técnicos reales —mejorar algoritmos existentes o generar otros nuevos—, los sistemas de IA aún no producen investigación con el rigor, la novedad o la validez que la comunidad científica exige.</li>
+          <li>El mensaje central es que la brecha entre capacidad computacional y contribución científica significativa sigue siendo amplia: la IA puede producir resultados superficialmente plausibles que no resisten el escrutinio de expertos del dominio.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Es un contrapeso empírico útil frente al optimismo de anuncios comerciales (como el propio programa de OpenAI para investigadores reseñado en este informe): la evidencia de Nature sugiere cautela sobre la autonomía investigativa real de los sistemas actuales, más allá de su utilidad como asistentes.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Investigaciones y estudios</div>
+        <div><b>Fuente:</b> Nature</div>
+        <div><b>Fecha:</b> 13 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABRElEQVR4nKWWQYqeQQhEn0P21Tf473+s7wbPE1QWQyCZMPAz7aIXgoWWpfaUL7YfXz3wpmtnhjln5/OZdwP/d2FrLYnVVn+eFzvsi+ye82Ln/cBvXY/FnwT+Zb8+kaZnO5dYH6QQdruR9AJrPPwpDjjwc+5pW1PTYtte9HF3JpzDIDs3fcRYjQoxdzUaK0URvaiR0qaxTRK5wrImfqKV5AYrBIQI3PElYJsmFLzKq0SLJaV33EcNbSIhFzvnF5CD4wKbvdFqDbYhTXvHlxhaA6TczjZgbWrNBdYI4eB5MpDnbke/ZuQsi+G87u5QqUkl4IUmsGgwqUIutDoFlpMnZ+m+HfjdPDY0Ct7tL1tVqaHe6OuDHSDJonPS21t7yuZAnjN3sw1yOmZ40Ys/EylhWDnp49V/YsCUffGwL3ju9PWP/bzG352xAIXCM+OyAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.nature.com/articles/d41586-026-02494-5" target="_blank" rel="noopener">www.nature.com/articles/d41586-026-02494-5</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 7l-3 6a3 3 0 0 0 6 0l-3-6zM19 7l-3 6a3 3 0 0 0 6 0l-3-6zM5 7h4M15 7h4M7 21h10"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#7C3AED">7</span><a href="https://arxiv.org/html/2608.05438v1" target="_blank" rel="noopener">Paper: una visión de infraestructura para un ecosistema de investigación integrado con IA</a></h3>
+        <ul class="resumen-list">
+          <li>Los autores sostienen que centrarse solo en políticas de divulgación del uso de IA no resuelve el problema de fondo: cómo debe evolucionar la comunicación científica cuando autores, revisores y lectores pueden depender de asistencia de IA.</li>
+          <li>Proponen tres pilares de infraestructura: procedencia y calibración (registros verificables del uso de herramientas de IA y puntos de referencia de confiabilidad), repensar los artefactos de investigación (más allá del paper tradicional, con principios FAIR de datos), y reconceptualizar la revisión por pares como labor académica reconocida y acreditable.</li>
+          <li>Plantean dos futuros posibles hacia 2036: uno en que la IA acelera la acumulación confiable de conocimiento, y otro en que el contenido generado por IA satura los sistemas de verificación.</li>
+          <li>Concluyen que la tecnología por sí sola no determina el resultado: &quot;si nos hace mejores depende de nuestras decisiones, no de las de los modelos&quot;.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Aporta un marco conceptual —provenance, artefactos, revisión por pares— más estructurado que el debate habitual sobre &quot;declarar o no declarar&quot; el uso de IA en publicaciones académicas, útil para orientar política institucional de investigación.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Papers</div>
+        <div><b>Fuente:</b> arXiv — Ryan E. Dougherty (US Military Academy, West Point) y Natalie Kiesler (Nuremberg Tech)</div>
+        <div><b>Fecha:</b> 5 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABDUlEQVR4nK2VsW0FMQxDn4LfUxt4/7FuA2oCpjikyP8pDkJUCjBNkTZV4VfNF2/1oDFVRVf1zFTVkyOfjcQzhCMS7zCmgMzlYerZkbd6ARBo8NNr/8JQgVyPqX80dDtzlVGWPApswFDgBQZJ4kSxk2SF4cR2DCJog/FF99FpCCqv9CDYQZESdrNUKI2hDWpv/gu2sIIsFO98kYSBYLLz1g4SyLHZ6eFjaJdBzNIX2wEbRTseGEcoEsZLPSRH4cbZ+WITW5bvd7/EwPEdAMtZksSOwLFWPF7TkGZEe+ntizBwnQs0qa0eDpIMaKXHT643QsxyvwBMM6NrOPtcP0MwcO1zHVxojDYZVP+w978B4APCmrWX4CwAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://arxiv.org/html/2608.05438v1" target="_blank" rel="noopener">arxiv.org/html/2608.05438v1</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#B45309"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#B45309">8</span><a href="https://www.nbcnews.com/tech/tech-news/college-essays-ai-admissions-rcna591688" target="_blank" rel="noopener">NBC News: la IA y los cambios de política están transformando de nuevo las solicitudes de admisión universitaria</a></h3>
+        <ul class="resumen-list">
+          <li>El reportaje documenta cómo las oficinas de admisión de universidades estadounidenses ajustan de nuevo sus políticas sobre el uso de IA en ensayos de admisión, en un panorama donde las reglas varían ampliamente entre instituciones.</li>
+          <li>Se suma a otros hallazgos recientes: un estudio de mayo (Inside Higher Ed) ya había explorado la prevalencia de ensayos de admisión escritos con asistencia de IA, y guías especializadas documentan qué permiten o prohíben las oficinas de admisión de las principales universidades.</li>
+          <li>El fenómeno añade una capa de incertidumbre regulatoria justo antes del ciclo de admisiones 2026–2027 en Estados Unidos.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Extiende la discusión sobre integridad académica más allá del aula hacia el proceso de ingreso, un frente que los informes anteriores de este boletín no habían cubierto directamente y que resulta relevante para procesos de admisión con componente de ensayo o entrevista.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Tendencias pedagógicas</div>
+        <div><b>Fuente:</b> NBC News</div>
+        <div><b>Fecha:</b> 26 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJwAAACcAQAAAACiw//gAAABiUlEQVR4nLWXy3EdMQwEG6p3H2aw+Yf1MhhE0D5IJ8s+yLueG1GFKRCfITjyDfvx3QY/MO7MLLvDzi47Mz9x/5PxhSzjhNOwyN7l/GAHenjTM+ew8zP3vxlDOYdI/8X9d7wA9nq7HHn/U0jfUK3YoKnV9ibn9PB1408cuMuJqiQtDVG9zVkBm1BT0t6O88X0Yo97HSEccrdGUziEjgxOT5/opcsD01FWnPs1asE0iLU1t3uJUrGCImlu1/0D2R4mnXUoe1+XsmG5Pk/O5Ich/QklFRXbpPaBfLYJRlLF8EA+yZuwGzhk29ua/AKudXMcOD3rbU6aNtBGaeF+L2HQYJImSfuALlHaiJqGPDBHNqlIq408oMkNVZPEWp7RZENa2yTY+/1JodEmoOEBnac1Mam2No/EaRv8yibwAKdq6dfda5vb874zQy9YPMuS9yN7SOmXNH2+H4/sdYHu0jdzuB7ZweA0MMHN9JldcQtrYa/1qb2uTbRq78/7i4E6eXN6XK77mjz/4d/xC9b1WC8lVjsxAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.nbcnews.com/tech/tech-news/college-essays-ai-admissions-rcna591688" target="_blank" rel="noopener">www.nbcnews.com/tech/tech-news/college-essays-ai-admissions-rcna591688</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#7C2D12"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#7C2D12">9</span><a href="https://www.uts.edu.au/news/2026/07/more-than-50-of-australian-university-assignments-used-ai.-how-should-unis-respond" target="_blank" rel="noopener">Australia: Turnitin reporta que el 53,6 % de las entregas universitarias mostró algún uso de IA</a></h3>
+        <ul class="resumen-list">
+          <li>Según datos de Turnitin, el 53,6 % de las entregas de educación terciaria australiana procesadas por su sistema entre octubre de 2025 y abril de 2026 mostró alguna forma de uso de IA; un 10 % de las entregas superó el 80 % de contenido generado por IA.</li>
+          <li>Los autores recomiendan distinguir entre IA como herramienta de aprendizaje y como reemplazo del pensamiento del estudiante.</li>
+          <li>Proponen rediseñar la evaluación exigiendo documentación del proceso: que el estudiante registre su uso de IA, evalúe la exactitud de lo generado y reflexione sobre su propio razonamiento, calificando tanto el producto como el proceso.</li>
+          <li>Argumentan que las herramientas genéricas tipo ChatGPT son insuficientes y que las instituciones necesitan sistemas de IA diseñados en torno al aprendizaje, la evaluación y las políticas institucionales propias.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Es uno de los conjuntos de datos cuantitativos más grandes y recientes sobre prevalencia real de uso de IA en entregas universitarias (no autorreportado), y refuerza —con cifras— el diagnóstico regional de Integrity AI ya cubierto en el informe del 18 de agosto sobre la brecha entre adopción y gobernanza en universidades latinoamericanas.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Evaluación e integridad académica</div>
+        <div><b>Fuente:</b> The Conversation / University of Technology Sydney</div>
+        <div><b>Fecha:</b> 14 de julio de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALwAAAC8AQAAAADqMvkGAAAB/klEQVR4nL2YzW0eMQxEnwLfRx18/Ze1HTxWMDnIySFwcrDlCNgfiIBmRySH1K7y4ZgfH8/DJwyz1mLPLPZmc97X+sxSfzNga0lDRZPEVm/yYBbDzONKsxlg1ueW+qdB9obZU+N8aakPxhsAKeDm9cB87XM/NKSw916b+pB5lfQqxnKDf0xuuOlz2tbElArStu1VDIXaEsAkVriMAW2SiE35xecqRkQrptjUkOYuRomHTQ+Zg3nX59FWjLGk5bqW7Cds8CUG2Cuzr+YHRarvkmhL9XJcNfaISZrgiYK7Pm9i00gwTRqbq/6gsS2mh0dKrmOcODpBpY2Ry1pSadLjkxBN8C4PIyQpcIRE6GUt6aFirekJ3rt69YPt4BqGYea1h8HezcFYKWCt2qNYt/OcJtGThgK5Gldv09UFDztu9iQQ5vJe1SYJtrR4au9VHk4GoJthRfaT53Jf8uKBTVfZ4HbgxXNXS0g15+bZrdtxpdq0nkvb3Nb2chCgQGi8jhEkDb84pFzXXdIekdLTZH1D/VA4+RFaJNf36ihJakLBIpcxPI3J0S1C6n1/tJVIrMl31A8Eig0oCeDtXtS+d3Clv593e7g3ZstkBRfp6rDIN5w5BSBPYBPmWXd5AOy4KNt0Nunk+rk2uOsyGSgsvFoHhXepiqQn4+/WwfUf/vv8BAtb+Oflxrf3AAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.uts.edu.au/news/2026/07/more-than-50-of-australian-university-assignments-used-ai.-how-should-unis-respond" target="_blank" rel="noopener">www.uts.edu.au/news/2026/07/more-than-50-of-australian-university-assignments-used-ai.-how-should-unis-respond</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#0D9488"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#0D9488">10</span><a href="https://techcommunity.microsoft.com/blog/educationblog/whats-new-in-microsoft-edu---back-to-school-august-2026/4516292" target="_blank" rel="noopener">Microsoft publica su actualización &quot;Back to School&quot; de Microsoft EDU para el año académico 2026-2027</a></h3>
+        <ul class="resumen-list">
+          <li>Microsoft publicó su actualización mensual de regreso a clases para Microsoft Education, que reúne las novedades del ecosistema Copilot y Microsoft 365 Education de cara al nuevo año académico.</li>
+          <li>La entrada continúa la línea de actualizaciones previas del verano boreal 2026, centradas en &quot;Teach in Copilot&quot; para planeación de unidades alineadas a estándares, Study and Learn Agent (Copilot Chat como tutor interactivo para mayores de 13 años), Copilot Notebooks para convertir contenido de clase en guías de estudio, y controles de docente sobre el uso permitido de IA por actividad.</li>
+          <li>El acceso completo al detalle específico de las novedades de esta edición de agosto quedó restringido para lectura automatizada al momento de este informe; se recomienda consulta directa de la fuente para el listado completo de funciones.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Junto con las actualizaciones de Google Classroom/Gemini ya cubiertas en el informe del 18 de agosto, confirma que los tres grandes proveedores (Google, Microsoft, OpenAI) sincronizan sus lanzamientos educativos con el inicio del año académico de hemisferio norte, lo que concentra en agosto-septiembre buena parte de las novedades de plataforma del año.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Herramientas y plataformas</div>
+        <div><b>Fuente:</b> Microsoft Community Hub — Education Blog</div>
+        <div><b>Fecha:</b> 27 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALwAAAC8AQAAAADqMvkGAAAB+klEQVR4nL2Yy23kMBBEHw3fixlM/mFNBsUI3h7oBYyF7cOgvTpIAhtgq39VRS358jpvX6/DC4az1uIs2PsAa+1z1lqvbPWdgWqNBksVU20n4+AszvOsdofHOmw467WtvrneAcjp2T3ClvXy5/7oA7YucLGfr271gyHCIuzaVc9D4qiP1Q39Z3HDZM1RbUnFptS7NNq7BRvIdZhYGPaB0sSaRBCb2VxVGmJuAAGIGfbRpGBuZaqM5yo23hDamMowllBMEC5UNSFlGK88T9jhLNeTBydPeMziblAlSaRpAsMzWCDQNG0kTc10zWsslWjglnwYSygNCW3VpmR2PlSTamJCa2C2rxCgkgIRCziMu61tq7UWxen5OJvDg30Oh0X24dCMz0ctUlv4iGaYPwq9D2IjjPcVNXe6ixRrhuejkcRKtVWqw3G0pjYtBcp9HeYoq2gipqntMA9KvNxXEqrWWdx9P3B2KfsRntkc3BnVcNgbh6WFNGk6nqsL641GQv0FvEr+8p+iTp8/0Db1ipKaQjqeK6SF5gK9tIz6eDtyAsiBbUP39sz2lZc5Pu5X787Ox9tZa2U/Dnsf1tLf4A9tjYErSDPOg7S0tU0/8fo07tJe0R5ydS+z549r2F37HPJE1orM1+ODPiJtvQpoWu+WaALEmGn+WP/hv88fhTAWmhPgPIYAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://techcommunity.microsoft.com/blog/educationblog/whats-new-in-microsoft-edu---back-to-school-august-2026/4516292" target="_blank" rel="noopener">techcommunity.microsoft.com/blog/educationblog/whats-new-in-microsoft-edu---back-to-school-august-2026/4516292</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#0F766E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#0F766E">11</span><a href="https://educationnewscanada.com/article/education/level/university/1/1214250/canada-s-ai-strategy-needs-educators-who-feel-prepared-not-just-trained.html" target="_blank" rel="noopener">Canadá: una encuesta a más de 800 educadores muestra que la estrategia nacional de IA necesita docentes que se sientan preparados, no solo capacitados</a></h3>
+        <ul class="resumen-list">
+          <li>En el marco de la estrategia nacional &quot;AI for All&quot;, estudiantes de doctorado en educación desarrollaron el proyecto &quot;GenAI-dentity Survey and Workshop&quot; y encuestaron a más de 800 educadores de escuelas, universidades y espacios de formación continua.</li>
+          <li>La encuesta indagó comodidad cotidiana con la IA generativa, su uso en evaluación y prácticas educativas, y los temores y desafíos percibidos por el profesorado.</li>
+          <li>El argumento central es que las instituciones educativas son clave para preparar a las nuevas generaciones en un uso apropiado y ético de la IA, y que la capacitación técnica no basta si el profesorado no se siente genuinamente preparado.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Distingue explícitamente &quot;capacitación&quot; (haber tomado un curso) de &quot;preparación&quot; (sentirse con criterio propio para decidir en el aula), una distinción útil para diseñar la ruta de formación docente más allá del conteo de participantes en talleres.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Formación docente</div>
+        <div><b>Fuente:</b> The Conversation (Canadá)</div>
+        <div><b>Fecha:</b> 20 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAADcAQAAAAAzIfIsAAACm0lEQVR4nMWZQYr2OAxEn5vel2+Q+x8rN3g6Qc3C3+z+HgZ6zJiEgAUWkqVSSVnlxzVfP8vgF8JZa81isWfW2rNn2ItZa/3m2H8SYqtotZgKYGz1mk7RtCUaoTSNck3nkm1Wl2y6wghbYHvLt18AkyHoYt4+7O78F8f+uGytag21FKE373O5wT8INlyLobZtMYg1JPXs3ovbAtQQBDxmR+/ZaRLTtARLgYAxF32rsSFp0kSbKLnn20pDwrlU/IRuchGHoo1t0ehBpmgu+vZoJcH4MRBTL9pJhEZpI+clN31bE/z7g00Tk9zMlWoIofWotWfzom8JFGxITSyG3MQhMamEngpqSMPNGCqJGhWl6cnWe/f5fVA2q2yzC66uwPzq2H9xnybUDxuqyFVMODW7qc0p1SUJ9KLOg3hpbNMYbGku5spxZ2MjoK0GuKfzG+iwhHfTgS0P5mIMLTcCz3Q2ku0eAZ73WtyeyEkTDkWxCdabHCyANkmEiIci3YyhpEZiUmJIUOUiN6ngaZXShAPv9l6/QktOG0Y5NAw5m/fysx9AQKWVKgkXdYbDLyVIAEKKF+snp2IbT77YGsPFmn3KSU+SHPilUnqRmwjEHK550kRirupsP50YhE/yUO9xk6+w1kwyLDppZ0EzPBd5wgE9kxCw9nj6It5asCYeKvYZ2+Riz/udOfaxAHjZmc4wD+89355uJQfv2pSeYnZthtFVlpls3qxumA7wvPd4Qtkvgc24gQ6wgctzE03alh7Aree5lZ+z1uJ5ZWYY8kKBwbtzME3Efjh1KvVez7tkS1aYuKAcurnp3LLzCHdnCpi1H8h+yDy3dH4DxBWWSyZvhilDrs81qeaDtz287ObcBITSUzfhdIPew9v1P/x3+AtAvLg5Kz32CQAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://educationnewscanada.com/article/education/level/university/1/1214250/canada-s-ai-strategy-needs-educators-who-feel-prepared-not-just-trained.html" target="_blank" rel="noopener">educationnewscanada.com/article/education/level/university/1/1214250/canada-s-ai-strategy-needs-educators-who-feel-prepared-not-just-trained.html</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#0891B2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#0891B2">12</span><a href="https://www.mastersinlibraryscience.org/articles/ai-literacy-in-libraries-2026-08-14/" target="_blank" rel="noopener">ACRL define cuatro competencias de alfabetización en IA para bibliotecas académicas</a></h3>
+        <ul class="resumen-list">
+          <li>ACRL define la alfabetización en IA como evaluación crítica de las herramientas —no solo su operación técnica—, organizada en cuatro áreas: consideraciones éticas, conocimiento y comprensión, análisis y evaluación, y uso y aplicación.</li>
+          <li>La Universidad de Arizona ofrece el curso LIS 528 (&quot;Applied AI Literacies in Information Practice&quot;), centrado en investigación académica, ingeniería de prompts y cuestiones éticas; investigadoras de la Universidad de Wisconsin-Milwaukee presentaron en ALA 2026 una guía práctica de implementación ética.</li>
+          <li>El rol del bibliotecario se redefine hacia enseñar a verificar salidas de IA, detectar alucinaciones y comprender el sesgo algorítmico, extendiendo la alfabetización informacional tradicional.</li>
+          <li>Un hallazgo metodológico relevante: el 93,9 % de los estudios de alfabetización en IA se basan en autorreporte, lo que sobreestima la competencia real; se recomiendan evaluaciones basadas en tareas.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Ofrece un marco de competencias específico y accionable para un actor institucional —la biblioteca académica— que suele quedar fuera de las estrategias de IA centradas en facultades y programas.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Formación docente / Recursos abiertos</div>
+        <div><b>Fuente:</b> Association of College and Research Libraries (ACRL), vía Master&#x27;s in Library Science</div>
+        <div><b>Fecha:</b> 15 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACsAQAAAADOSnp1AAABrUlEQVR4nLWXsZEcMRADm1/ywQwu/7A2g2YEkMGTodK/8dKI5hhdWyCIwa7yyTkfn03hm+Oz1mKdw95rr3PWWWt9F/LVuBVeORh5Ia0z7CVbIPvkdAuHPcS+49cLa86zz/5ryFfjZ6+zzitP/gHyx7HVtMG2RFsd0nuDv402zLBpW1trQWvbDrEVmrSppVGYYjcpUkKjARzThJCkVSxRmilN+ka3QUQzxW4FEVBM0jGfqDFNbWowOORvSikx8S09GfNJib8ushE7x060pFjeHz6mN1QrV3SQzOmtNcX61mfuzde2aFsN1sx5EAk3q9qmdexd2nhjsPEKPpYnlqTvyyTGMQ+aG+ER1EbG7rLvVG1iSNrO5bdpbAqJJnP+/gGsntVTVjc8lP2MadK75aV3aY7lt4QiTSzNXT5DmkhWdzhyXOk+Heqad9lwV1rbSsZ8YpMa2+vvTupdid5aQt9PaLBXWZMQ1DqW3wIlSRqJOJgnrYISCLVj7A/OAg01Pj2sffagB7W/wrW3ZI3lCbC68vCcF88e+9/B1tuRk+sZ57rm5UOrhDDWv9d//C/+Cbj21svaSVQCAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.mastersinlibraryscience.org/articles/ai-literacy-in-libraries-2026-08-14/" target="_blank" rel="noopener">www.mastersinlibraryscience.org/articles/ai-literacy-in-libraries-2026-08-14/</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#9333EA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#9333EA">13</span><a href="https://www.congresoedumedios.com/entradas" target="_blank" rel="noopener">Colombia: el Congreso EDUMEDIOS 2026 en Barranquilla dedica uno de sus cinco ejes a la IA en el aula</a></h3>
+        <ul class="resumen-list">
+          <li>El congreso internacional, organizado por EDUMEDIOS (edumedia.tech) y realizado en la Universidad Autónoma del Caribe (Barranquilla), dedica uno de sus cinco ejes centrales a &quot;inteligencia artificial en la educación&quot;, con un panel específico: &quot;La inteligencia artificial llegó al aula: ¿estamos listos?&quot;.</li>
+          <li>Dirigido a docentes y directivos de educación básica, media y superior, con programación adicional en STEAM, robótica, educación ambiental y gestión educativa.</li>
+          <li>Cuenta con 15 conferencistas confirmados.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Es de los pocos eventos presenciales sobre IA en educación con sede en Colombia identificados para el semestre, y una oportunidad de participación e intercambio regional más cercana geográficamente que los congresos internacionales cubiertos en informes previos (Costa Rica, Chile, España).</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Eventos</div>
+        <div><b>Fuente:</b> EDUMEDIOS — Universidad Autónoma del Caribe</div>
+        <div><b>Fecha:</b> Inscripciones abiertas en agosto de 2026; evento del 23 al 25 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABCklEQVR4nK2VMXIDUQhDH57txQ18/2PtDcQJlMIu4jjFBofmz2cGjQABFV5sbvywC46pqunqgqmqKyHvjsQ6QygS7zCmoMeUmboW8ptjrBrrLyHf7Xi+arLFuKFA9+k0ygqj3ODnp8ELDJLESoSTZIXh2ESJAHnJQwoCx2xzkUyIMGTHwyLEDsTa1hSEIlmJdjwgjpFj7+pxI9S9MD2C1cxhHJxISrLjIfeEAuhGOx4msoGYXV8OoXGTZuRr1N8wGDcwLtrUUmMGHH00L4kV8dDJqi9TVZyDzLDbpzhxHp2Jt1o3NuaD/XEAyHKlwbO+DdxLYFy93+tQqTpHS40VGNQ81Lq5Df9w978AnOy7SK4lNtAAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.congresoedumedios.com/entradas" target="_blank" rel="noopener">www.congresoedumedios.com/entradas</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#2563EB"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#2563EB">14</span><a href="https://sites.stat.columbia.edu/tzheng/post/2026-08-19-aix-weekly-newsletter/" target="_blank" rel="noopener">La Universidad de Colorado Colorado Springs exige un curso de alfabetización en IA antes de habilitar el acceso a ChatGPT Edu</a></h3>
+        <ul class="resumen-list">
+          <li>UCCS habilitó ChatGPT Edu para todos los estudiantes matriculados, pero condiciona la activación de la cuenta a completar previamente un curso de alfabetización en IA en Canvas.</li>
+          <li>El acceso incluye límites de uso más altos y controles institucionales; las conversaciones de los estudiantes no se usan para entrenar el modelo.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Es un modelo intermedio entre el acceso universal sin condiciones (Duke, CU Denver) y el requisito curricular pleno (NUS): condiciona el acceso a la herramienta, no a toda la formación académica, a completar un mínimo de alfabetización. Es replicable a bajo costo de implementación.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Currículo y alfabetización en IA</div>
+        <div><b>Fuente:</b> aiX Weekly (Columbia University) / University of Colorado Colorado Springs</div>
+        <div><b>Fecha:</b> 14 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJwAAACcAQAAAACiw//gAAABg0lEQVR4nLWXsY0lMQxDnwY/pzqY/suaDqgKeIE3ONy/Df7a68CBABEci6I0Fd7OXO8x+CA4VTUDzBQ1U1WfpP8/mJh7im6NROJ9zCngTjlzU0x9lv5dUJ7mRoN+kv7veQEMeqBJ+QQmTpysS44TexOz3OC/Ag27mCRJRBw5UpJsYzoLGRMs2ds8LwpZNWm1hEH7NXJQrBDJYLZrdInJM00zBgf3AS1pUY2ydLXNE5tIARKJWNrHJHaiL/vQgfckUSRFKIkQJ3jKSbAwCvK+5hNkEUMcJfuYZRWBEsvphm1PxrIWX9kE9rV0QT+Aq+FOcaI3EwdZMpaRD9TIik0iEgLSCf+0RLAcGXPAk20ZO6AkcKTfVxfZimTEvs+/qEzzAO1Bk54jPMPqyTjW/uzANtKayZbhSL8nXpUiIQf0eU1VITVCvZ70zF5HZ0qGFtwH5iY267sxhzwEiDOjEZD9XfEFoEITlzo9P6D0Flwzc9yTx3BkvrO0iYm/Nqbd2fEL/x1/AHT7WN2oskXyAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://sites.stat.columbia.edu/tzheng/post/2026-08-19-aix-weekly-newsletter/" target="_blank" rel="noopener">sites.stat.columbia.edu/tzheng/post/2026-08-19-aix-weekly-newsletter/</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#4338CA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4338CA">15</span><a href="https://sites.stat.columbia.edu/tzheng/post/2026-08-19-aix-weekly-newsletter/" target="_blank" rel="noopener">Nueva Gales del Sur (Australia) anuncia una revisión gubernamental del efecto de la IA en el aprendizaje escolar y universitario</a></h3>
+        <ul class="resumen-list">
+          <li>La autoridad de evaluación del estado australiano de Nueva Gales del Sur anunció una revisión formal de los efectos de la IA generativa en el aprendizaje estudiantil.</li>
+          <li>Entre las medidas en estudio figura pausar las tareas para la casa sin supervisión, y se examina específicamente la integridad del Higher School Certificate (el examen de egreso que también pesa en el ingreso a la universidad).</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Es una revisión gubernamental —no institucional— que podría anticipar cambios regulatorios con impacto en el perfil de preparación de los estudiantes que ingresan a la universidad, en un estado que ya reporta (según el dato de Turnitin cubierto en este mismo informe) uso mayoritario de IA en las entregas.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Lineamientos y políticas</div>
+        <div><b>Fuente:</b> aiX Weekly (Columbia University) / Gobierno de Nueva Gales del Sur, Australia</div>
+        <div><b>Fecha:</b> 10 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJwAAACcAQAAAACiw//gAAABg0lEQVR4nLWXsY0lMQxDnwY/pzqY/suaDqgKeIE3ONy/Df7a68CBABEci6I0Fd7OXO8x+CA4VTUDzBQ1U1WfpP8/mJh7im6NROJ9zCngTjlzU0x9lv5dUJ7mRoN+kv7veQEMeqBJ+QQmTpysS44TexOz3OC/Ag27mCRJRBw5UpJsYzoLGRMs2ds8LwpZNWm1hEH7NXJQrBDJYLZrdInJM00zBgf3AS1pUY2ydLXNE5tIARKJWNrHJHaiL/vQgfckUSRFKIkQJ3jKSbAwCvK+5hNkEUMcJfuYZRWBEsvphm1PxrIWX9kE9rV0QT+Aq+FOcaI3EwdZMpaRD9TIik0iEgLSCf+0RLAcGXPAk20ZO6AkcKTfVxfZimTEvs+/qEzzAO1Bk54jPMPqyTjW/uzANtKayZbhSL8nXpUiIQf0eU1VITVCvZ70zF5HZ0qGFtwH5iY267sxhzwEiDOjEZD9XfEFoEITlzo9P6D0Flwzc9yTx3BkvrO0iYm/Nqbd2fEL/x1/AHT7WN2oskXyAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://sites.stat.columbia.edu/tzheng/post/2026-08-19-aix-weekly-newsletter/" target="_blank" rel="noopener">sites.stat.columbia.edu/tzheng/post/2026-08-19-aix-weekly-newsletter/</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#0369A1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#0369A1">16</span><a href="https://www.skills.google/paths/17/course_templates/1120?locale=es" target="_blank" rel="noopener">Recurso: Google Skills ofrece el curso &quot;Crea apps basadas en IA generativa en Google Cloud&quot;</a></h3>
+        <ul class="resumen-list">
+          <li>Curso de nivel intermedio (4 horas) sobre desarrollo de aplicaciones de IA generativa basadas en modelos de lenguaje de gran tamaño (LLM).</li>
+          <li>Cubre principios de diseño de aplicaciones de IA generativa, ingeniería de prompts, implementación de Retrieval-Augmented Generation (RAG) y patrones de arquitectura para aplicaciones basadas en LLM en producción, incluyendo chats potenciados por LLM.</li>
+          <li>Incluye la opción de un &quot;challenge lab&quot; para que desarrolladores con experiencia obtengan la insignia de habilidad sin cursar el contenido completo.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Es un recurso técnico (no solo conceptual) orientado a quien debe construir, y no únicamente usar, aplicaciones de IA generativa: complementa la oferta de cursos de alfabetización general con una vía de formación técnica en RAG y arquitectura de aplicaciones LLM.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> MOOCs y recursos abiertos</div>
+        <div><b>Fuente:</b> Google Skills (Google Cloud)</div>
+        <div><b>Fecha:</b> Recurso vigente; consultado el 31 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJwAAACcAQAAAACiw//gAAABgklEQVR4nLWXS44kRwxDnxq9Z9yg7n+sugF1gudFjQHDYy/akY4lARH6UFTmyG9vv37H4AfgzgzsGTic3Zn5Sfg/g1qgPbvzfqG959xhhzkNybLzs/B/BUucdcf/FP639w3Aa4EXYZ/g/CJCk82b9x7iNef0QP8CHOglJ6rViNio3nJ+LwcPu5LBPXhbOzWxIbRNtbmvHWgrSS3gA/2sQozwaWjvOWMJJbQIvc+zJqbSNG1yP3fUhs+IDCGP5CkNiKl5YkZtaTQFaR/o55Qcelg5lAO8731pCttM6WHD3vvSyxfwWgPvj6LuNZ/GYGwTyhMeQt4Hdg90X8m1f2JS0pJGP/v0wL6nJhJS4YF9byRRNPyS6zUnkT9tJCa93/fWakM+9fvEvhdbG0F9wpe+oUM3e+gAzAOaV9tQaVKb+3tUPvcjtbbPzF1bimp8JM8vdoB4doY5c94PfYO5h3jWKa/3M5xE2HUaOve1R3J2loSyy72WCrTS2F9H/voe/Q//HX8Af9BMod/8BW0AAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.skills.google/paths/17/course_templates/1120?locale=es" target="_blank" rel="noopener">www.skills.google/paths/17/course_templates/1120?locale=es</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#0369A1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#0369A1">17</span><a href="https://academy.claude.com" target="_blank" rel="noopener">Recurso: Claude Academy, la plataforma de formación gratuita de Anthropic sobre IA y sus productos</a></h3>
+        <ul class="resumen-list">
+          <li>Plataforma gratuita de cursos, tutoriales y casos de uso organizada en dos frentes: formación en productos Claude (Claude.ai, Claude Cowork, Claude Code, Claude Tag, Claude Platform/API) y &quot;AI Fluency&quot;, un eje de alfabetización general en IA.</li>
+          <li>El curso central de AI Fluency se organiza en torno al marco &quot;4D&quot;: Delegación, Descripción, Discernimiento y Diligencia (Delegation, Description, Discernment, Diligence) para trabajar con IA de forma efectiva.</li>
+          <li>Dirigida a un espectro amplio: personas que están explorando la IA, comenzando a usar Claude, o llevando la herramienta a un equipo u organización.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> A diferencia del Google Skills recién reseñado, este recurso es principalmente conceptual y de alfabetización (no de desarrollo técnico) y funciona como puerta de entrada tanto para uso individual como para despliegues institucionales de Claude.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> MOOCs y recursos abiertos</div>
+        <div><b>Fuente:</b> Anthropic</div>
+        <div><b>Fecha:</b> Recurso vigente; consultado el 31 de agosto de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGwAAABsAQAAAACnHWpgAAAA2UlEQVR4nKWVQWrFQAxDn4fsNTfI/Y+VG8gnUBeB0kAh9a93AgtbeKSp8KN68agX2FVF79pdVW/NT3gQuoEm9Iy76EKnDV3vzb/Aq9Gfm5+wR4O+60BpsQFlqPegwFxAgUdckiQyTpIZd3V3c6FNs2c7ExMiQuLhzpaxnBjP9ZIgZEXjuXJsiWg+VzGSicZ6AyKJNdeLZSPiuV4LQICmb0NyLEPM0Purq0rIt5mGHkxMd92rz3OjtaE2mXoQ0IVI9We5oV146v2Fgu6w2udHuQH06eGN6h//whfSyITWm9a97AAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://academy.claude.com" target="_blank" rel="noopener">academy.claude.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="ideas">
+      <h4>Ideas clave de la semana</h4>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>El acceso institucional a modelos de frontera se vuelve estándar mínimo, no diferenciador</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>La alfabetización en IA se convierte en requisito de activación, no solo de formación disponible</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>La integridad académica se mide con datos de plataforma, no solo con percepción</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>La investigación científica entra al centro de la disputa entre proveedores de IA</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>La preparación docente se distingue de la capacitación docente</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>Los lanzamientos de plataforma se concentran en el regreso a clases del hemisferio norte</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>La gobernanza gubernamental entra a la evaluación escolar con efecto aguas abajo en la universidad</span></div>
+    </div>
+    <div class="why">
+      <h4 style="color:#fff;">¿Por qué importa?</h4>
+      <p>Estos hallazgos orientan decisiones institucionales informadas para aprovechar el potencial de la IA y minimizar riesgos académicos, éticos y pedagógicos.</p>
+      <div class="why-cta">¡Explora, infórmate y compara! Escanea los códigos QR para ampliar cada hallazgo.</div>
+    </div>
+    <div class="cats">
+      <h4>Categorías</h4>
+        <div class="cat-row"><span class="cat-swatch" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span>Lineamientos y políticas institucionales</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#2563EB"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></span><span>Currículo y alfabetización en IA</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#0D9488"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span><span>Herramientas y plataformas</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#0EA5E9"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></span><span>Herramientas y plataformas / Investigación</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#7C2D12"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg></span><span>Evaluación e integridad académica</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></span><span>Investigaciones y estudios</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 7l-3 6a3 3 0 0 0 6 0l-3-6zM19 7l-3 6a3 3 0 0 0 6 0l-3-6zM5 7h4M15 7h4M7 21h10"/></svg></span><span>Papers</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#B45309"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></span><span>Tendencias pedagógicas</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#0F766E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/></svg></span><span>Formación docente</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#0891B2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span>Formación docente / Recursos abiertos</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#9333EA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span>Eventos</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#4338CA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></span><span>Lineamientos y políticas</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#0369A1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></span><span>MOOCs y recursos abiertos</span></div>
+    </div>
+  </div>
+  <div class="bottom-note">Vigía IA Gen — documento interno de circulación entre colegas. Fuente base: informe quincenal Vigía IAgen, Universidad de los Andes — Conecta-TE / DIDACTA.</div>
+</div>
+</body>
+</html>
