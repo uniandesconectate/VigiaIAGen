@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vigía IA Gen — Consolidado de septiembre</title>
+<style>
+  :root{
+    --navy:#0B1B3A;
+    --navy-2:#122a52;
+    --teal:#12A594;
+    --teal-2:#0E8074;
+    --paper:#F4F6F8;
+    --ink:#0B1B3A;
+    --muted:#5B6B82;
+    --line:#E3E8EE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .page{max-width:1180px;margin:0 auto;background:#fff;box-shadow:0 0 40px rgba(11,27,58,.08);}
+  header{
+    background:var(--navy);
+    color:#fff;
+    padding:32px 40px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 15% 120%, rgba(18,165,148,.25), transparent 55%);
+    pointer-events:none;
+  }
+  .brand{display:flex;align-items:center;gap:18px;position:relative;z-index:1;}
+  .brand-mark{width:64px;height:64px;flex-shrink:0;}
+  .brand h1{margin:0;font-size:34px;line-height:1;letter-spacing:1px;font-weight:800;}
+  .brand h1 span{display:block;color:var(--teal);font-size:34px;}
+  .header-right{position:relative;z-index:1;text-align:right;max-width:420px;}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--teal);color:#fff;font-weight:700;font-size:13px;letter-spacing:.5px;
+    padding:7px 16px;border-radius:20px;margin-bottom:10px;
+  }
+  .header-right h2{margin:2px 0 6px;font-size:20px;}
+  .header-right p{margin:0;color:#C9D3E0;font-size:13.5px;line-height:1.5;}
+  .section-title{
+    display:flex;align-items:center;gap:10px;
+    color:#fff;padding:12px 40px;
+    font-size:16px;font-weight:700;letter-spacing:.5px;
+  }
+  .section-title .dot{width:9px;height:9px;border-radius:50%;background:#fff;opacity:.85;}
+  .findings{padding:0 40px;}
+  .finding{
+    display:grid;grid-template-columns:74px 1fr 230px 130px;gap:20px;
+    align-items:start;padding:26px 0;border-bottom:1px solid var(--line);
+  }
+  .finding-icon{
+    width:64px;height:64px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;
+  }
+  .finding-icon svg{width:32px;height:32px;}
+  .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:6px;
+    background:var(--navy);color:#fff;font-weight:800;font-size:13px;margin-right:8px;
+    flex-shrink:0;
+  }
+  .finding h3{margin:0 0 10px;font-size:17px;line-height:1.35;display:flex;align-items:flex-start;gap:0;}
+  .finding h3 a{color:var(--teal-2);text-decoration:none;}
+  .finding h3 a:hover{text-decoration:underline;}
+  ul.resumen-list{margin:0 0 10px;padding-left:19px;}
+  ul.resumen-list li{font-size:13.5px;color:#33425c;line-height:1.55;margin-bottom:5px;}
+  .finding p.relevancia{margin:0;font-size:13px;font-weight:700;color:var(--teal-2);line-height:1.5;}
+  .meta{font-size:12.5px;color:var(--muted);line-height:1.6;padding-top:2px;}
+  .meta b{color:var(--ink);}
+  .qr-box{display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .qr-img{width:88px;height:88px;border:1px solid var(--line);border-radius:6px;padding:4px;background:#fff;}
+  .qr-link{font-size:10.5px;color:var(--teal-2);text-decoration:none;text-align:center;word-break:break-all;max-width:130px;}
+  .qr-link:hover{text-decoration:underline;}
+  .footer{
+    display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:0;
+    background:var(--navy);color:#fff;margin-top:10px;
+  }
+  .footer > div{padding:28px 32px;}
+  .footer h4{margin:0 0 16px;font-size:13.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--teal);}
+  .ideas{border-right:1px solid rgba(255,255,255,.12);}
+  .idea-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;font-size:13px;line-height:1.5;color:#DCE3EE;}
+  .idea-row svg{width:17px;height:17px;flex-shrink:0;color:var(--teal);margin-top:1px;}
+  .why{border-right:1px solid rgba(255,255,255,.12);}
+  .why p{font-size:13px;line-height:1.6;color:#C9D3E0;margin:0 0 14px;}
+  .why-cta{font-size:12.5px;font-weight:700;color:var(--teal);}
+  .cats{display:flex;flex-direction:column;}
+  .cat-row{display:flex;gap:10px;align-items:center;margin-bottom:11px;font-size:12.5px;color:#DCE3EE;}
+  .cat-swatch{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .cat-swatch svg{width:13px;height:13px;color:#fff;}
+  .bottom-note{text-align:center;font-size:11.5px;color:var(--muted);padding:18px 40px 26px;}
+  @media (max-width:900px){
+    .finding{grid-template-columns:1fr;}
+    .finding-icon{width:48px;height:48px;}
+    .footer{grid-template-columns:1fr;}
+    .ideas, .why{border-right:none;border-bottom:1px solid rgba(255,255,255,.12);}
+    header{padding:26px 20px;}
+    .findings{padding:0 20px;}
+    .section-title{padding:12px 20px;}
+    .bottom-note{padding:16px 20px 22px;}
+  }
+</style>
+<div class="page">
+  <header>
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="26" r="22" fill="#0B1B3A" stroke="#12A594" stroke-width="2"/>
+        <circle cx="32" cy="26" r="16" stroke="#12A594" stroke-width="1" opacity=".5"/>
+        <circle cx="32" cy="26" r="9" stroke="#12A594" stroke-width="1" opacity=".5"/>
+        <path d="M32 26 L32 12 A14 14 0 0 1 44 33 Z" fill="#12A594" opacity=".55"/>
+        <circle cx="32" cy="26" r="2.5" fill="#12A594"/>
+        <rect x="20" y="50" width="24" height="4" rx="2" fill="#0B1B3A"/>
+        <rect x="29" y="46" width="6" height="6" fill="#0B1B3A"/>
+      </svg>
+      <h1>VIGÍA<span>IA GEN</span></h1>
+    </div>
+    <div class="header-right">
+      <div class="pill">🔊 RADAR MENSUAL</div>
+      <h2>Consolidado de septiembre de 2026</h2>
+      <p>Noticias, investigaciones y tendencias sobre inteligencia artificial en educación superior.</p>
+    </div>
+  </header>
+
+  <div class="section-title" style="background:#4F46E5"><span class="dot"></span> POLÍTICAS, LINEAMIENTOS Y GOBERNANZA</div>
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">1</span><a href="https://www.unesco.org/en/articles/education-ministers-call-education-remain-common-good-age-ai-unescos-digital-learning-week" target="_blank" rel="noopener">Declaración Ministerial de la UNESCO: ocho compromisos sobre IA y educación</a></h3>
+        <ul class="resumen-list">
+          <li>Adoptada por ministros de educación durante la Semana del Aprendizaje Digital; declara que &quot;el aprendizaje no se sirve cuando la IA sustituye las relaciones humanas&quot; y llama a que la educación siga siendo un bien común.</li>
+          <li>Ocho compromisos: sistemas auditables de interés público, estímulo al pensamiento crítico, autonomía docente en decisiones tecnológicas, protección de menores, gobernanza de datos de estudiantes y docentes, equidad por diseño, costo total de propiedad favorable a código abierto y construcción de capacidades de gobernanza.</li>
+          <li>Reconoce a estudiantes y docentes como titulares de derechos sobre sus propios datos y favorece la interoperabilidad y el código abierto frente a la dependencia de proveedores únicos.</li>
+          <li>En el mismo marco se entregó el Premio UNESCO–Rey Hamad Bin Isa Al-Khalifa a las TIC en la Educación 2026 a proyectos que usan IA para fomentar la creatividad y el pensamiento crítico.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Marco de referencia internacional de más alto nivel político emitido en el periodo; útil para alinear el lenguaje institucional y justificar decisiones ante instancias directivas.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Políticas</div>
+        <div><b>Fuente:</b> UNESCO</div>
+        <div><b>Fecha:</b> 8–9 de septiembre de 2026 (Semana del Aprendizaje Digital, París)</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADMAQAAAAAXWXFfAAACO0lEQVR4nL2YS47dMBADS0H21A3e/Y/lG1AnqCz0ZjbBIEAyHcML2wJMy2yyP0u+OM6Pr1bgL5fOWovFPntx1trnsM9Za/3tC79e+okcck5wxcMOZ1fO92PR0kqKrdDofTiwL4CdJ5D9hNezkn944R+xODks2OWV0DOEFQ8H8JDzKgsgDvC1uqG/Pd7w/XyhWjCltmmCqgNYLVhKW/B9DSNYNlRKMGKMpRNYJmAQDRFajRN8VWKComlq0JqRfUmCJEWNgJnwjR+HE4CcvrJZzyYe8hrwQ2OxCfGaIa3M6CtGqzVe0Jo68A9p24SGenXcG5cTWDFJmkbzCTcTh9craGN6413JCF8lphrUhhjCiJbFSkJaYlJo7Ehs8DZBknjvhIz4oUBqSKHyNvyZfWGN+hkjrZ3IX8tVIBueXbLSlQd4PRP7qrdmS21Rgp3g6ydlkZwdWMQFh0XXkG+A0qQBKtUhfaUlESGSG5cjPt+rrQKpBc29HPF5TBJb0kAaOpa/0jZieyE75Ic3B18/vJ1Kes8JfSlGo1xESGbq3uS2XJGPkLyVwIT3Nr35MtcPpQ7x1RTUd7lrKWlntHyLJ8lN0iEww5cR6Tv4YwlliC8irYGP/G/tDF8fEn53Yun7G6b6ykDMrXJsboP5/fnrbLD7gdMD6QIOM7MUba3p7WUbU6fq+ffcxhSSKzEmfP7OUo6sdrkOBXYOmZvb7GZnlSw4sjswZ6Na26R+WkjrVC16fSL1NhCNOsHX+o9z0V9yLVdVUQtPiQAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.unesco.org/en/articles/education-ministers-call-education-remain-common-good-age-ai-unescos-digital-learning-week" target="_blank" rel="noopener">www.unesco.org/en/articles/education-ministers-call-education-remain-common-good-age-ai-unescos-digital-learning-week</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">2</span><a href="https://www.iesalc.unesco.org/es/articles/nuevo-estudio-de-unesco-iesalc-revela-una-amplia-adopcion-de-la-ia-en-la-educacion-superior-de" target="_blank" rel="noopener">UNESCO-IESALC: adopción amplia de IA pero brecha de gobernanza en la educación superior de América Latina y el Caribe</a></h3>
+        <ul class="resumen-list">
+          <li>Encuesta a 200 instituciones de educación superior en 19 países de la región, presentada en el marco de la Semana del Aprendizaje Digital de la UNESCO.</li>
+          <li>87% de las instituciones usa IA en al menos un área operativa; 74% la emplea en enseñanza y aprendizaje (ChatGPT, Copilot, Gemini); 57% en análisis de datos de investigación.</li>
+          <li>Solo 26% cuenta con una estrategia formal de IA, y 50% de los estudiantes reporta confusión sobre el uso apropiado de estas herramientas.</li>
+          <li>Las instituciones privadas lideran en planeación estratégica y capacitación de personal; las públicas enfrentan mayores restricciones de recursos.</li>
+          <li>Identifica una &quot;brecha de gobernanza&quot;: la adopción se expande más rápido que las políticas, estructuras y marcos de evaluación institucionales.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Es el diagnóstico regional más completo y reciente disponible; posiciona a Uniandes dentro (o por delante) de la curva de adopción y gobernanza latinoamericana.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Investigación / Paralelo regional</div>
+        <div><b>Fuente:</b> UNESCO IESALC</div>
+        <div><b>Fecha:</b> Presentado el 9 de septiembre; difusión ampliada el 15–18 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADMAQAAAAAXWXFfAAACX0lEQVR4nLWYQY7lOAxDnxu1p2+Q+x8rN3g6AWfh6lVPbbq/DQQJYsCKI4qktcoPY379NAN/OTVrrVmzZy322jMbZtZaf7vgz1PLMGGVeV7IAGzDfD4Wig1NQ5sKRdHP/0OAoWsG97w8dudfF/z/8XVuO+8zzM74TJkrsX6RggLuOnneDKQXYi03+MfrDZ/PF20rCdSaErBtL2BjmNny6mZtlyBr7RuYL9SYaBE8D7mwL2zQtKmxkBrqlVjSpBWAKqeYcyFfeVw4s0HcD8HpPyz48xTN7worCEmM5sK+qCJJNFhIkFzJV6EpIRTQCOVGvr7oWp3CCkCGLUv8vFZ+DWQ2QVZe9gTCgzd4fvMCbzbd51euQ/Q3+JAYYlASSyq3ahlKbCSNtRTuYJ7WVoWGBkJv8OGvwbWYtQHWC8SX9V7KV1WS0kPysXpFK0VpTdQUEL2iy9ZqjVLBopU7HCUcDAqQHNd9IdYqG17IPG/YLxBW54aP6uoKbxYCj5OFPHdwaErbHpOhR1Ju1Nfhvh3eB1dZwSGLfp7nOaAobVFjT8ld4SiqRpI2B5WmN3D4hauz2bJnuyXvwOQOR1VTW2koDSZXeN4kpCQc+wSUK/r1Fd4t24ceAwCB7AsegHqMmir2m7TsFRymBBvT75yd6r6C+bTH/KamHphc4XmpxsYKwRxpuXauTEuOfnGE7M65cq11zsc4YMh2uKEp2NqGw1bxu7ju5Es8eMdvwJ9PuNS3ycMTSlk8Qe1zrR9FsNqcWra5gcPffZuyN+PS5cOW3NjXuYxJpMjpPlzxAD+Mz3uA/wChXDxBjVGOhgAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.iesalc.unesco.org/es/articles/nuevo-estudio-de-unesco-iesalc-revela-una-amplia-adopcion-de-la-ia-en-la-educacion-superior-de" target="_blank" rel="noopener">www.iesalc.unesco.org/es/articles/nuevo-estudio-de-unesco-iesalc-revela-una-amplia-adopcion-de-la-ia-en-la-educacion-superior-de</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">3</span><a href="https://thetech.com/2026/09/17/ai-committee-report" target="_blank" rel="noopener">MIT: el comité de IA publica su primer reporte hacia una respuesta institucional</a></h3>
+        <ul class="resumen-list">
+          <li>El comité, dirigido por Eric Klopfer y Sam Madden, encontró que ~80% de la comunidad cree que las habilidades en IA serán necesarias profesionalmente, pero 48% teme las &quot;consecuencias cognitivas&quot; de depender de ella.</li>
+          <li>Documenta problemas reales: menor asistencia a espacios presenciales, debilitamiento de las relaciones profesor-estudiante y dificultad para evaluar el trabajo estudiantil.</li>
+          <li>Recomienda un menú estandarizado de cuatro políticas de curso: permitir, limitar, requerir o prohibir herramientas de IA.</li>
+          <li>Propone un comité permanente de monitoreo y rechaza, como primer paso, exigir IA obligatoriamente en el currículo.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Ofrece un modelo operativo de &quot;menú de políticas por curso&quot; respaldado por cifras de encuesta interna, fácil de adaptar.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Política institucional</div>
+        <div><b>Fuente:</b> <a href="https://aiandeducation.mit.edu/report/" target="_blank" rel="noopener">Informe – IA y Educación</a></div>
+        <div><b>Fecha:</b> 17 de septiembre de 2026 (reporte fechado el 13 de agosto de 2026)</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABQ0lEQVR4nK2Wwa0cMQxDn4K50x1s/2VNB2QFzGGCHH5+gM0qPhgYAXqgBdKeKV9WfnytwJulzAxnzpzJycy82/hdqTUmuktovWFlYKybg8i83/jHugAoOUD+ScTfSzXSjnWhJtCpuFHzOWt8wL8/D/hjFm3bYlTRtp+zrujE6NUEH7yYF330qFRGXZzxColD4nOjZKPLrixkF9vyQpcygDkecYo+zzYWkrFwi73yBLVrY1lgrfzlyjwouwvWRZTIvALN+43fso5oNB2Yng2LSqZQ1aW72ZtSQf2EYDV7GVRJQrtsE2QNgAMnC10WRqoFtTYZokK1rD7238zLLqIulqErXW1/Bch0dU9goEXGss0qQyU5nRcEZfMOYePKrotBK38BuTVQZM723dYLofDsizP28UNZZwgDLpUrd+XV+Y//hT8BsJUHhiA3150AAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://thetech.com/2026/09/17/ai-committee-report" target="_blank" rel="noopener">thetech.com/2026/09/17/ai-committee-report</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">4</span><a href="https://www.harvardmagazine.com/ai/harvard-ai-classroom-debate-guidance-faculty" target="_blank" rel="noopener">Harvard: se intensifica el debate entre liderazgo y profesorado sobre IA en el aula</a></h3>
+        <ul class="resumen-list">
+          <li>Harvard ofrece acceso a Claude (Anthropic) para estudiantes y profesores, un módulo obligatorio sobre IA en la clase de escritura de primer año y un chatbot de asesoría académica.</li>
+          <li>El presidente Garber sostiene que &quot;con la ayuda de IA, los avances en conocimiento ocurrirán más rápidamente que nunca antes&quot;.</li>
+          <li>Dos tercios del profesorado encuestado reporta efectos negativos de la IA; casi 90% detectó trabajos posiblemente generados por IA.</li>
+          <li>Un tercio de los estudiantes admitió haber violado las políticas de IA vigentes.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Muestra la brecha entre la narrativa institucional optimista y la experiencia cotidiana del profesorado, un patrón que probablemente se repite en otras universidades de investigación.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Política institucional</div>
+        <div><b>Fuente:</b> Harvard Magazine</div>
+        <div><b>Fecha:</b> 18 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJwAAACcAQAAAACiw//gAAABfElEQVR4nLWXzW3mMBBDn4LcqQ7Sf1lfB5wK3h6cAAskewik9c0DiKaGnB8v+fbM2/cY/CI4ay1m71mLzcxa6zfHfwq+IwMvdtmvRWVOMd+YxbBjmAizfnf8R54AH92Mnf17Sv/EhHGt4NzAfCNCd8by2h/EY8zVDf0rsKGHmKjWpvV50WPMFiQkLaRwATOECsHYhJxjUqw1rQY8z2fBtKlJS0zPNSoN1dh8fuYCzwhpH745130VthvoEFZ35oaXpGJJG+9oFKo8Bg30XKPWVJrH9qYX/Nk29UlCuOTPBB5cJXrh7mnzhYb0vN7fgYyL7g1OkuP++dRRElqfFnKhf2IixhKTGxpZG2IeleCGlzSNoRg1udCTTenD10J6wZ9WxUoi0eO7v0MmO8vtsLoXOfeSWrEhEXuez9UNsie89ucacr6HaGeG12wGwsd5HbW0DXwNpHPdP3ewFx8zGyj0Dk9SqD4j/kYdVZ/JYUlv9E+gMSQF0/P5vv7Df8cf7CFTdiNNnroAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.harvardmagazine.com/ai/harvard-ai-classroom-debate-guidance-faculty" target="_blank" rel="noopener">www.harvardmagazine.com/ai/harvard-ai-classroom-debate-guidance-faculty</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">5</span><a href="https://www.thecrimson.com/article/2026/9/16/lepore-harvard-artificial-intelligence-education/" target="_blank" rel="noopener">Artificial Education: Jill Lepore cuestiona la política de IA en la enseñanza en Harvard</a></h3>
+        <ul class="resumen-list">
+          <li>La historiadora Jill Lepore critica que la administración de Harvard priorice la eficiencia sobre el aprendizaje significativo al alentar el uso de IA en clases de escritura.</li>
+          <li>Contrasta con el comité del MIT, que advierte que &quot;muchos usos de IA privan a los estudiantes de oportunidades de aprender&quot;.</li>
+          <li>Señala que Harvard otorga presupuestos mensuales de USD 2.500 en Claude a profesores mientras recorta financiamiento de investigación y personal.</li>
+          <li>Introduce el concepto del &quot;efecto Waymo&quot;: la tecnología elimina la fricción humana (mentoría, colaboración), generando aislamiento y pérdida de habilidades colaborativas.</li>
+          <li>Cita estudios que muestran menor pensamiento crítico entre usuarios frecuentes de ChatGPT y peor desempeño cuando se les retira el acceso a la IA.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Voz crítica de alto perfil académico que contrapesa el entusiasmo institucional dominante y equilibra el debate interno sobre adopción de IA.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Debate docente / Política institucional</div>
+        <div><b>Fuente:</b> The Harvard Crimson (columna de Jill Lepore)</div>
+        <div><b>Fecha:</b> 16 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACsAQAAAADOSnp1AAABpklEQVR4nLWXQYrdMBBEn8LsSzfw/Y/lG5RO8LLQ3wSGwISOF8b0ojDVpafuJd8859d3Vfhh+ay12GdzFnsf1llr/VTk+zLV2pRaoVbbIe3ScqVbTcuQ9hcAoc/7HFx5/0Hkr9pdnhz3lv0OasfD9nS5ZOUlnhnt1Q39o7RhqJeqFTXk8+VcTrBg7pvClLYQG1KaVKBjnmCTBEVDJz1RKVHSUmym/rumt4lpEqJT5xJB20htFJjjSSQGmupt65zfmEIkbZs6pm3S3rC0mCZkTlulAvkkZSwnKZAYI9i0c540JoZiUtuM5UQaUQn1GjSnHa7doA1jfn+xC7D6vDnn4c1azswQtNH0ArG1yRRPVmG7AXjZpJt36L6kJIAlSWpgjIOSKnJR28oYv5XYikBb0jlWtQ3V0MtEx+7LEkuwYptRnhguTwre8XCS3xLw0raQKcb2jq/ymU8Ks3MVH58tnbznAY20rSltxzzRlshdGMTJfNNyB85ICh3dG9gnXa7jecLTGcZ+9oadszxuOJAxDmqltNLq7ehcTlrInQlJmDqX6z/uxb8BEOTMtOuz+kUAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.thecrimson.com/article/2026/9/16/lepore-harvard-artificial-intelligence-education/" target="_blank" rel="noopener">www.thecrimson.com/article/2026/9/16/lepore-harvard-artificial-intelligence-education/</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">6</span><a href="https://www.chronicle.com/newsletter/academe-today/2026-09-16" target="_blank" rel="noopener">La rendición de la Ivy League ante la IA es una locura</a></h3>
+        <ul class="resumen-list">
+          <li>Anastasia Berg argumenta que cuando los líderes institucionales adoptan acríticamente las iniciativas corporativas de IA, &quot;mueren las humanidades&quot;.</li>
+          <li>Critica las políticas de adopción de IA de universidades de la Ivy League por priorizar la conveniencia sobre el juicio pedagógico.</li>
+          <li>Se enmarca en un debate sectorial más amplio sobre el rol de las humanidades frente a la automatización del pensamiento.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Voz crítica influyente que contrasta con el optimismo tecnológico dominante en las comunicaciones institucionales sobre IA.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Opinión / Tendencia pedagógica</div>
+        <div><b>Fuente:</b> The Chronicle of Higher Education (Academe Today)</div>
+        <div><b>Fecha:</b> 16 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABTElEQVR4nK2Wsa0cMAxDnw7p6Q1u/7Fug6cJmOKCFD8pfs5xYUAEREg2TXnKl7WPrwh8E9qZ2Tm7ezg7M99N/BP6QVnk+Xq6S9nPuR7skPPk6STsfD/xL3UBC864r38q4u9Q8tp4Tu64sLVNS9RWP+YaD/g7PPA5F21r24a+g4seDUnte89NXULFKMTc9PgImWcORGFzpQm3gOGwhFxoogGJgITk6rxSWwK16QXXg7BnTg3DLt7oPqQVSkq40Vd9v6EIxRuux3Iyu0PkSC78awQy9PAijM/XlU/EWoJiL3Q/AkeeGxCmn88OlIRQ0lgu/IsKRrUANz1SbKGaanKlCdmhJ0+Ws1zMx7eVamlqvakLAWkrRW88+kErzm56CDez9i3QIA2AV/4lSvp2/tzMx8cvwpMiw5VH29qkxQK50b2ANSZJ9OIe5z/+C38CEX8LI6w85pcAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.chronicle.com/newsletter/academe-today/2026-09-16" target="_blank" rel="noopener">www.chronicle.com/newsletter/academe-today/2026-09-16</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">7</span><a href="https://www.insidehighered.com/news/governance/executive-leadership/2026/09/23/ai-use-funding-cuts-how-provosts-navigate-2026" target="_blank" rel="noopener">Encuesta a rectores académicos: alto uso personal de IA, baja transformación institucional</a></h3>
+        <ul class="resumen-list">
+          <li>De 376 rectores académicos encuestados, ~70% usa IA semanalmente (71% para resumir documentos, 66% para preparar presentaciones, 65% para redactar comunicaciones).</li>
+          <li>Solo 10% reporta que su institución tiene una estrategia de IA centralizada; solo 12% observó optimización de flujos de trabajo departamentales y 8% transformación operativa institucional.</li>
+          <li>50% de los rectores reporta recortes de financiamiento federal (80% en universidades públicas doctorales); solo 25% confía en que la investigación se mantendrá fuerte.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Evidencia una brecha entre adopción individual y transformación institucional real, un patrón replicable en la región.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Tendencia institucional / Gobernanza</div>
+        <div><b>Fuente:</b> Inside Higher Ed (Encuesta anual de Directores Académicos / Provosts)</div>
+        <div><b>Fecha:</b> 23 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADMAQAAAAAXWXFfAAACQ0lEQVR4nL2YMZIsNwxDn6acQzeY+x+rb/B0AjjQTPRrHaxNd9BBq0ookgAJ9io/POf10wn88uistQ6w1t5w9l5wzlrrtxf+fIStTaIxYBux1QEssRoiaSEUZQDrBXDIkxOedZKnO//2wh8eRWNKhUBop+JK4Xm7u6mnPj2QDsS13OAfnzcMcKNtjTFYE0Ns2wkeVkkv4wkGgQzU6y8WKUvPs3uyQHrIQN+ghULbj8xaQjKSwzRNjYiJBXCGG1SJRjBRtIxgaXNftGoTq2aG84SosZR8QxvBSmltegVG40xcLzbLtd7n2WHlnBwIONB7S6tXzDXaq+gZzgsKjZcfaSkjWLa0RKQpkooznM/VVwsWy7U7EzxME5TScHMamhF9RUgbKmhShQnOL3Nydlll9bw9ADm/vvAfZ8p+DmzK9sC5M5mdZ2RW1hCjFQhaO1EvL2Dox3bces14gFC+EsunFdoJz0ZBwzUbLUKajMwUL0DTanv9/VA/rIUkzWdt+OhtzG/UT/fFq+rMzMoobUj49Pk4Va+YSpSACe1Fm6iXmstF24AlmZlfTa6++vFUIB2pl0F6R2bI7VdmRsttSMPNI001jnC+KZG21JTmOp0Rbty88TUCagoz9aKaq+Hv/uUQVtuqAlSxkTrB+ddZa8F7Cxy2e4OHid389vUWUmqw3EVlws+fxeHY57g2snn22uz/Pq4XQBb7ZNOyNwBNhrAA3yvs81zT0X0m9hRba6ml3z7fDnkAkCRpQiF3oR3w8+t//C/6N5Cya/6uEPgQAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.insidehighered.com/news/governance/executive-leadership/2026/09/23/ai-use-funding-cuts-how-provosts-navigate-2026" target="_blank" rel="noopener">www.insidehighered.com/news/governance/executive-leadership/2026/09/23/ai-use-funding-cuts-how-provosts-navigate-2026</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">8</span><a href="https://honisoit.com/wp-content/uploads/2026/09/2026_USyd_AI_Green_paper.pdf" target="_blank" rel="noopener">La Universidad de Sídney firma una alianza plurianual con OpenAI para ChatGPT Edu</a></h3>
+        <ul class="resumen-list">
+          <li>Acuerdo plurianual para desplegar ChatGPT Edu en toda la institución: personal desde octubre de 2026 y estudiantes desde el semestre 1 de 2027.</li>
+          <li>La universidad invertirá USD 1 millón en el fondo de innovación y sostenibilidad de IA de OpenAI.</li>
+          <li>El anuncio llegó una semana después de un paro de 24 horas del personal (2 de septiembre) que exigía garantías frente a la pérdida de empleos por IA; el sindicato NTEU no fue consultado.</li>
+          <li>Persisten críticas sobre los contratos militares de OpenAI, el impacto ambiental, la privacidad de datos (tras una reciente brecha cibernética en la universidad) y la coherencia con una educación centrada en lo humano.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Ilustra la tendencia a licenciar plataformas de IA a escala institucional, junto con las tensiones laborales y de gobernanza que estos acuerdos generan.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Herramientas y plataformas / Política institucional</div>
+        <div><b>Fuente:</b> Honi Soit</div>
+        <div><b>Fecha:</b> 11 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJwAAACcAQAAAACiw//gAAABeElEQVR4nK2Xy40cQQxDnyYBVgaTf1iTASuC50PbgIFdH9ZVdRQgQh9SzR758vbrawx+ENwzA2vPzGLWnpmfpH8f1O4hqdAP2nPMPWD5MHsF9vws/Z/B2bzfZs/7v9K/C4a1PnuInzuYEcJnpS0QjzGnC/pXYEEPMVEtNFSr6inma8MG39vsxR5mnfaOxTaUIKbJce/FVou2xPZ4niOLDrjh3U3Y573L07mx0tgLvce2pEgwOd47UjCmTQVyoc40qcFYY7hQZ6UladoK53vH9ikukIKe89MECX0IL9ycp1rjDS6Zh02xIu2FHVkFgd/oF/RuK4X4XOcb/ASfjdc04YaOEkBMJKme87M1CdoH3gs7qsFS6jOES3XiM03F9sKO2mpN6OPHLmhT/2jdiD3X+2vPTHbLYkE359+OF1pYC/mwV+CSrwthh72YtY+9DS19/Mdvft7Q5sPMqLTo+Z1/fB3s2auLzM7xPClQHr7znNELPuTLO/3v+AUorWAJrpmqzAAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://honisoit.com/wp-content/uploads/2026/09/2026_USyd_AI_Green_paper.pdf" target="_blank" rel="noopener">honisoit.com/wp-content/uploads/2026/09/2026_USyd_AI_Green_paper.pdf</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">9</span><a href="https://www.forbes.com/sites/jonmarkman/2026/09/28/google-openai--anthropic-plan-their-own-finra-style-ai-safety-regulator/" target="_blank" rel="noopener">OpenAI, Anthropic y Google exploran un organismo conjunto de estándares para IA de frontera</a></h3>
+        <ul class="resumen-list">
+          <li>OpenAI, Anthropic y Google exploran conjuntamente la creación de un organismo de estándares de seguridad para IA de frontera, al estilo de un regulador autorregulado del sector.</li>
+          <li>La iniciativa busca protocolos comunes de evaluación de riesgos antes de que los reguladores impongan marcos más estrictos.</li>
+          <li>Es la primera coordinación pública de autorregulación sectorial entre estas tres compañías, normalmente rivales.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Los estándares que emerjan de este organismo probablemente definirán las políticas de uso aceptable que las universidades deberán seguir al licenciar estas herramientas.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Gobernanza y políticas de la industria de IA</div>
+        <div><b>Fuente:</b> Forbes</div>
+        <div><b>Fecha:</b> 14–28 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADMAQAAAAAXWXFfAAACV0lEQVR4nL2YO24tOQxEj4yXl3bQ+1/W3cHhCmoCXQOT2AP4WdMKOiDAAsVPFbXKF998fGWBH5pmrTWszazZnDOz1vqpw69NfyjD6uIBFiPMtszvY30wC9gZfF7JM8sHZv3c4fem5AUvXg8zu4v8rcNvTDPP6+HZMwXEO1jYWiJITWiprf461nLzjuPf34bfx6Jtm5KWqqVN217AskCsKGCLRC/E9QEG9zzZVPZeIQO9URuJSWpoT3GEkCv5Iqm15UCQJpAbWImSWKPWmMZcqQ0TIYXG0JRo7sQFJUAVY8TaG/mSBk2iFRFLuDA3UJAktBLf/eaVOywlljQEPsO7gWXQ1qrm3KHhyh3WtIU2KaetTw4v6I2HNcsMw+qG1xC3V/gLWmKLEaBC7vQXQjA9sNoKXsjXx4Qqz2ypDHuz688dfmdyD1vis4cFfW2H5Ire+ORJqcEEKzdmbyuURoXUvOXHlXmYmJjWUNrEegerEdqipqfkmztYaSVHIKLQpLkxD1cHwrCDA1lxv/7C4fdcaSzSxjQc+royN+Swo9rkKKmEO3qjRhoFaM6501+HsNrkCIDkFOIVDQCFKDmSxsAlfSgeYUhorG8FfEX32kPE8SioxoYre0pTCGLa9K2vcyVfJ5KUmrQ5eHc0m9S2fA5CT/Xf2L9oWzFNqPhemG/E9TFrLfIwLxx4XmE78Lr0DnAE4aHjd1xX9CGzYGdsWdtl1rg2F/TGn/MTmKd7w3S1+8cO/2NPOZQPtSR6WuzKnK8Nb9o6e0rtJW1z3jhszXvskytxrf/xXfQfqdFJ4SjJp6UAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.forbes.com/sites/jonmarkman/2026/09/28/google-openai--anthropic-plan-their-own-finra-style-ai-safety-regulator/" target="_blank" rel="noopener">www.forbes.com/sites/jonmarkman/2026/09/28/google-openai--anthropic-plan-their-own-finra-style-ai-safety-regulator/</a>
+      </div>
+    </div>
+  </div>
+  <div class="section-title" style="background:#B45309"><span class="dot"></span> EVALUACIÓN</div>
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-icon" style="background:#B45309"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#B45309">10</span><a href="https://www.chronicle.com/newsletter/teaching/2026-09-10" target="_blank" rel="noopener">Los exámenes orales resurgen como respuesta pedagógica a la IA generativa</a></h3>
+        <ul class="resumen-list">
+          <li>Profesores de matemáticas, historia, ciencias de la salud, comunicación e ingeniería retoman los exámenes orales para contrarrestar el uso indebido de IA generativa en las evaluaciones.</li>
+          <li>La conversación oral es impredecible y difícil de tercerizar a un chatbot; expone vacíos de comprensión y fortalece el vínculo docente-estudiante.</li>
+          <li>Un profesor señala: &quot;El punto no es realmente el examen; es el estudio para prepararse para él&quot;.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Muestra un giro concreto hacia el rediseño de la evaluación, no solo la detección, como estrategia frente a la IA generativa, con adopción en múltiples disciplinas.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Evaluación</div>
+        <div><b>Fuente:</b> The Chronicle of Higher Education (newsletter Teaching)</div>
+        <div><b>Fecha:</b> 10 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABPklEQVR4nK2WwW1DMQxDn4LcqQ3+/mNlA2oC9vA/ekgbII3qi2ECImiCBl3hac3tGYE3oakqemqqu6eq3h38Cd0JA6INmjCfc92YYlyy6GLq/cEX0PDoIv7z4G+QJA6OHRdObFkoshP7Y65yg7+PDZ9zkVzCHClJFlw2xALFGBZcN+S0iKcQYpFVYtkQzqtaG7+EEpsYyZs74siSIghCG11GUnIKdHaZQNfuBK38MhdFLJOVX0EEK5IRmzeEhUSwEWjnl4IsyU7Cxq/7uEJh1ACtTe4JSDGJ5V2+FIlIkuWw8j7GjlBsmZUuJ7GigFm9xzIAjfA06LHoRwFDGEpk3h581dsCGsPAsem0xNPNFfv2srcRI8qu1uo/AfBoCs2hB73pWmNzthlo12mJQzjr0V5xndoSTl2L3Nc//gu/AE839hER9H4PAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.chronicle.com/newsletter/teaching/2026-09-10" target="_blank" rel="noopener">www.chronicle.com/newsletter/teaching/2026-09-10</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#B45309"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#B45309">11</span><a href="https://www.chronicle.com/newsletter/teaching/2026-09-10" target="_blank" rel="noopener">Modelos alternativos de calificación: estudiantes co-crean los criterios de evaluación</a></h3>
+        <ul class="resumen-list">
+          <li>Teresa Focarile, profesora de teatro en Boise State University, co-creó con sus estudiantes los criterios de evaluación de su curso, dentro de un movimiento más amplio hacia el &quot;specifications grading&quot;.</li>
+          <li>Este tipo de rediseño busca hacer más transparente y participativo el proceso de evaluación.</li>
+          <li>Se enmarca, junto al auge de los exámenes orales, en una ola más amplia de rediseño evaluativo en la educación superior de EE. UU.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> El rediseño evaluativo frente a la IA no se limita a formatos orales: también incluye la co-creación de rúbricas como estrategia de transparencia y compromiso.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Evaluación</div>
+        <div><b>Fuente:</b> The Chronicle of Higher Education (newsletter Teaching)</div>
+        <div><b>Fecha:</b> 10 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABPklEQVR4nK2WwW1DMQxDn4LcqQ3+/mNlA2oC9vA/ekgbII3qi2ECImiCBl3hac3tGYE3oakqemqqu6eq3h38Cd0JA6INmjCfc92YYlyy6GLq/cEX0PDoIv7z4G+QJA6OHRdObFkoshP7Y65yg7+PDZ9zkVzCHClJFlw2xALFGBZcN+S0iKcQYpFVYtkQzqtaG7+EEpsYyZs74siSIghCG11GUnIKdHaZQNfuBK38MhdFLJOVX0EEK5IRmzeEhUSwEWjnl4IsyU7Cxq/7uEJh1ACtTe4JSDGJ5V2+FIlIkuWw8j7GjlBsmZUuJ7GigFm9xzIAjfA06LHoRwFDGEpk3h581dsCGsPAsem0xNPNFfv2srcRI8qu1uo/AfBoCs2hB73pWmNzthlo12mJQzjr0V5xndoSTl2L3Nc//gu/AE839hER9H4PAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.chronicle.com/newsletter/teaching/2026-09-10" target="_blank" rel="noopener">www.chronicle.com/newsletter/teaching/2026-09-10</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#B45309"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#B45309">12</span><a href="https://www.chronicle.com/newsletter/teaching/2026-09-10" target="_blank" rel="noopener">Cuadernillos de examen en papel y alfabetización en IA conviven con las políticas de restricción</a></h3>
+        <ul class="resumen-list">
+          <li>Varias universidades retoman los cuadernillos de examen en papel (&quot;blue books&quot;) como disuasivo adicional frente al uso de IA generativa en evaluaciones.</li>
+          <li>En paralelo, combinan estas restricciones con formación explícita en alfabetización de IA para los estudiantes, en lugar de limitarse a prohibir.</li>
+          <li>El enfoque busca equilibrar la integridad académica con el desarrollo de competencias digitales necesarias después de graduarse.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Confirma que las políticas más efectivas combinan restricción puntual en la evaluación con formación explícita, en lugar de depender de una sola estrategia.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Evaluación / Lineamientos y políticas</div>
+        <div><b>Fuente:</b> The Chronicle of Higher Education (newsletter Teaching)</div>
+        <div><b>Fecha:</b> 10 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABPklEQVR4nK2WwW1DMQxDn4LcqQ3+/mNlA2oC9vA/ekgbII3qi2ECImiCBl3hac3tGYE3oakqemqqu6eq3h38Cd0JA6INmjCfc92YYlyy6GLq/cEX0PDoIv7z4G+QJA6OHRdObFkoshP7Y65yg7+PDZ9zkVzCHClJFlw2xALFGBZcN+S0iKcQYpFVYtkQzqtaG7+EEpsYyZs74siSIghCG11GUnIKdHaZQNfuBK38MhdFLJOVX0EEK5IRmzeEhUSwEWjnl4IsyU7Cxq/7uEJh1ACtTe4JSDGJ5V2+FIlIkuWw8j7GjlBsmZUuJ7GigFm9xzIAjfA06LHoRwFDGEpk3h581dsCGsPAsem0xNPNFfv2srcRI8qu1uo/AfBoCs2hB73pWmNzthlo12mJQzjr0V5xndoSTl2L3Nc//gu/AE839hER9H4PAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.chronicle.com/newsletter/teaching/2026-09-10" target="_blank" rel="noopener">www.chronicle.com/newsletter/teaching/2026-09-10</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#B45309"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#B45309">13</span><a href="https://www.chronicle.com/newsletter/teaching/2026-09-03" target="_blank" rel="noopener">Specifications grading y los límites éticos de la detección de IA</a></h3>
+        <ul class="resumen-list">
+          <li>John Haberstroh (Universidad de Nevada, Las Vegas) explica cómo implementar specifications grading en cursos de historia, con requisitos hiper-específicos por rúbrica y un umbral del 80% para la calificación de &quot;completo&quot;.</li>
+          <li>Robert Townsend argumenta que los profesores de humanidades deben entender la IA en lugar de rechazarla de plano.</li>
+          <li>Karen Costa advierte contra tácticas engañosas (texto oculto en las instrucciones para &quot;atrapar&quot; el uso de IA), que socavan el modelaje ético hacia los estudiantes.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Ofrece alternativas prácticas de evaluación y una advertencia ética relevante sobre las tácticas de detección de IA.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Evaluación</div>
+        <div><b>Fuente:</b> The Chronicle of Higher Education (newsletter Teaching)</div>
+        <div><b>Fecha:</b> 3 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABR0lEQVR4nK2WwW0DQQwDRwf/qQ6u/7KuA6oC5mEjDycGHCv7WwIiuJSWUIWnM8czAm9CU1UwNdXdU1XvFv6EboShTRs0YT7nOphiXLLoYur9whdQ6eoi/nPhL5AviZNzx3VDGU4YuS+UhV/lBn9fG/wxF0liYzlSkiy4bIgDijEsuA7k9NnxFEIsZhWDLUJiy9bGL6HYJkby5o04QSaCILTRZSXkIdDZzQRBhDwU7nQpSHIsk5VfkRAokhHx51yVBiYDrUGz8OsGFycNlwXlc5MTdEzhe+K0NnNvjGSTWN7NF5ElSbIcFt5jA378JJmFrgMUaMvVDHiTq0CbFp4GXYs+CnBHFyUybxe+yC/iBCy8yy8ndoQTkVV+HUwBE03Z1VrtEwBkGs2pi17vACgxM6ey8T7xPQmlxF7lPWA7IQZl0cf6x73wCyEf8cM2WMabAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.chronicle.com/newsletter/teaching/2026-09-03" target="_blank" rel="noopener">www.chronicle.com/newsletter/teaching/2026-09-03</a>
+      </div>
+    </div>
+  </div>
+  <div class="section-title" style="background:#0F766E"><span class="dot"></span> FORMACIÓN DOCENTE</div>
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-icon" style="background:#0F766E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#0F766E">14</span><a href="https://news.mit.edu/2026/mit-schwarzman-college-computing-launches-pilot-help-educators-teach-ai-across-disciplines-0909" target="_blank" rel="noopener">MIT Schwarzman College of Computing lanza el &quot;AI Educators Pilot&quot; de formación docente</a></h3>
+        <ul class="resumen-list">
+          <li>El piloto reunió a 19 profesores de siete instituciones de cuatro estados en un taller intensivo de una semana (julio de 2026) para enseñar fundamentos de IA y machine learning aplicados a sus disciplinas.</li>
+          <li>Los participantes adaptaron materiales del curso de pregrado del MIT &quot;Modeling with Machine Learning&quot; para usarlos en sus instituciones.</li>
+          <li>El taller fue gratuito para los docentes aceptados; las instituciones cubrieron los viáticos.</li>
+          <li>El decano Dan Huttenlocher lo enmarca como una apuesta por &quot;invertir en la formación de instructores, no solo de estudiantes&quot;.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Modelo replicable de formación de formadores en IA aplicada a disciplinas diversas, más allá de los cursos genéricos de alfabetización en IA.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Formación docente</div>
+        <div><b>Fuente:</b> MIT News</div>
+        <div><b>Fecha:</b> 9 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALwAAAC8AQAAAADqMvkGAAAB9klEQVR4nL2YsZEdOQxEH1XrNzP4+Yf1M3iIoM8YnYyr1RkrrGgSVcCwG2gAc8qnZ358fg9fMMw5h3NnuNx7z2XmnPMVV78zYGsbQiItia1uvoM5zJmOYzhXYM7XXP3mfADQO7kcy7w8X/7c/zVc8y7cO9f5M1efnA/SQS6a4dVLJ53NGMcL/ufywibntK2QQI2obbsaQ6E2KKSECqsxPnJ8nQ4Bw0VO5ey+oyVNwwOTQJJtrNqW2Aaq7TJWSNAGqzx8ZFdLEFOIrU1oSLMdo//KYjEBoLt81KSNmBiq1vUa1GIgkpKU7RpsTAiWJsUnxHJ9RNOIYAOxLvMRo1EaBA1ux1AIKTx6Jft51Z/FV2pKSmW3n89hSK+X4T2dYfC1Opf0qYlQ60P4en0YIbUPEaZAtuuDhliBlpSsz1fvDPAaJIfMCLPLh02MaayoxrDco1DkEeA0qbqs7YXWlObpJNW6rFepfWQ3gT7orWPVNH3aOHwLH63EX0DVyvoMl4ZII3n8N/t90CeXkmfASpexKjQJ5pkXDN/AB0ZRwaTKNh9tq0R9BLHs6y5Qnk6r7SMo+7mr9UlctNRdPn4wB7iXeO6UDOdmdVf7uXO+cyTkQArzDXttXnLv22PunDRZ7h+1T16ZoiFZ3z8eXayRNtHt+er8hf8+/wCMHRBTDWu6jgAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://news.mit.edu/2026/mit-schwarzman-college-computing-launches-pilot-help-educators-teach-ai-across-disciplines-0909" target="_blank" rel="noopener">news.mit.edu/2026/mit-schwarzman-college-computing-launches-pilot-help-educators-teach-ai-across-disciplines-0909</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#0F766E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#0F766E">15</span><a href="https://blog.google/products-and-platforms/products/education/new-ai-educator-trainings-september-2026/" target="_blank" rel="noopener">Google lanza la &quot;AI Educator Series&quot; con Badge-a-thon global para docentes</a></h3>
+        <ul class="resumen-list">
+          <li>Programa gratuito de capacitación en microsesiones (menos de 15 minutos) para que docentes adquieran habilidades prácticas en IA.</li>
+          <li>Nuevos módulos mensuales: automatización de tareas administrativas, &quot;Guided Learning&quot; con Gemini y &quot;Deep Research&quot;.</li>
+          <li>El 19 de septiembre se realizó un &quot;Badge-a-thon&quot; virtual de 10 horas con insignias digitales certificadas alineadas a ISTE.</li>
+          <li>Enfoque explícito en formatos breves y flexibles que respeten la carga horaria docente.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Modelo replicable de microcredenciales para escalar la alfabetización en IA entre cuerpos docentes numerosos sin exigir bloques largos de tiempo.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Formación docente / Herramientas</div>
+        <div><b>Fuente:</b> Google (blog oficial)</div>
+        <div><b>Fecha:</b> Anuncio: 3 de septiembre; evento insignia: 19 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACsAQAAAADOSnp1AAABt0lEQVR4nLWXsY0lSQxDXy3WZ2Xw8w+rM3iKgGf0rXHAjDELXZk0CDUliupTvnjz6ysUfgjPOWc4h3PvvTNnzjk/JfkObgV6fRhJad3inkOmdz55PMww5+ckX77fAANjJsMHnr8p8HvugFwevPkbkm/hFO7NfUgQSJe4jxf8D3TBFW7aVmNS26Rtu8StIUEJVWqzVjcpIKWJAu5pApKkJW1KzA73L24agZk+5z5TMjtzgmqxEENDy1LdlLSt1DYYu6X3b8whY+YiPTA/Jvm+bkMaChU1XdPEWkWDvNoscR/h83BBuEEu3mdpTqIGX+PT1qx5HqI0pOgr/d4MkjTtq3l1bQ9a8rYRE8PmPkkoeb8gopu+tDZqW9KwNoP4JqSkStPGtV5K24ZGTbC4pjcGKqmtkK3c+T1yh9zpvTyAfPZ2FaD8SUzCmi9LEiJt07TZ66WN+GalprJYt7Q2Sd5Wmk3vyJuXqb7g5l1FIJD236hY27GIf5Zg0Kx5vlVo37ut7mXa+9+QcmwCl3Nn7f4GhjtyZzLPp36etbvq1YKiis1i7tRaUhPtai8BTU1p6mvQnfvkf/wv/gcCUKgvGm2xUgAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://blog.google/products-and-platforms/products/education/new-ai-educator-trainings-september-2026/" target="_blank" rel="noopener">blog.google/products-and-platforms/products/education/new-ai-educator-trainings-september-2026/</a>
+      </div>
+    </div>
+  </div>
+  <div class="section-title" style="background:#16A34A"><span class="dot"></span> INVESTIGACIÓN Y PAPERS</div>
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">16</span><a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence/2026/09/14/nonexistent-research-ais-benefits-education" target="_blank" rel="noopener">La investigación sobre los beneficios de la IA en el aprendizaje sigue siendo casi inexistente</a></h3>
+        <ul class="resumen-list">
+          <li>Pese a la adopción masiva (más de 700.000 licencias de OpenAI compradas por instituciones como ASU y el sistema de Maine), la evidencia rigurosa sobre el efecto de la IA en el aprendizaje sigue siendo escasa.</li>
+          <li>Justin Reich (MIT) advierte que &quot;la base de evidencia es casi inexistente&quot;; los ensayos controlados aleatorizados rara vez reciben financiamiento.</li>
+          <li>Patrick O&#x27;Neill (Ivy Tech) señala fallas metodológicas en estudios que afirman beneficios; el acceso a LLM sin acompañamiento pedagógico resulta contraproducente para el pensamiento crítico.</li>
+          <li>Carly Robinson (Stanford): sin diseño intencional, la IA &quot;probablemente reduce el aprendizaje mediante descarga cognitiva&quot;.</li>
+          <li>El ritmo de actualización de los modelos (cada 1 a 3 meses) vuelve obsoletos los hallazgos antes de publicarse.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Cuestiona la premisa de que &quot;más IA&quot; mejora por sí sola el aprendizaje y subraya la necesidad de evaluar con evidencia propia antes de expandir el uso institucional.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Investigación / Evaluación</div>
+        <div><b>Fuente:</b> Inside Higher Ed</div>
+        <div><b>Fecha:</b> 14 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADMAQAAAAAXWXFfAAACSElEQVR4nL2YQY4cOwxDnxuzp2/Q9z9W34A+wcvCnWw+Gh+YjOJlCTBLJYqiasmHcx6fIvDN0FlrcdZZ+yLszT5nrfXdCz+HvpDDLi5W4Lj32ZXz81gPzuLk+aRwelwH4azvX/jxfAFwumF7liddO3/18v+DRSRdwC7QM4L1IIJnnb1rcS8OxAGs1Q39z+MN/XEsVBut1tYmUXUAqwUTsIAEpDCA9YDKq2Y/SxZHtpCRemXh6i7kQDgQWBP1akkJVg0UoyQT3GgQi1JtLmw7gZUGTaTNTSvFmbxKtVBsDa3iSH+latJQTawmdeIb1kAjaUj9/Wymv0jhpM+Wvdsk6zWhh6hV0sTQklTJTL2M8GY9t2hlRA99c7BtqSTQ2gnOV+1tMUOJF32qv5AaCklICxnhfG+p1Fpa31Ps57G+2BzCPkBxhZPX4WSE87V/xEJigs0MD4FIpYB912ugvx7sxnPM4hnZwCb+xYWfj0nTt/4SIiR0ZC7blMRICNFAZnQjkqSaGtOm4Iw/hNx5cpl43eFQXqQmhV66S0gZ8RtoyFX52IQ0M77XlDSXIAkqtiPz6w7HRKRtq9TMeJvbXdD2soImnekvuDYtgcr1VOlUf5Ea2+bNEzLi2a6y37RSUqTpSL2KpaFpucPkHZjaK2OVu1mazsyv1Q0uz75rc/bJC9gzOu+1a3czauPV/hlv0+auXaApLUPzq7S+J4le7ZUJ7f0denaXs/EcX6444aOqlevhuftX7hI7olHXv1/rIe82GKjX+of/RX8BjrJtJhx4LScAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence/2026/09/14/nonexistent-research-ais-benefits-education" target="_blank" rel="noopener">www.insidehighered.com/news/tech-innovation/artificial-intelligence/2026/09/14/nonexistent-research-ais-benefits-education</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">17</span><a href="https://arxiv.org/abs/2609.18676" target="_blank" rel="noopener">El impacto desigual de la IA generativa en el aprendizaje estudiantil</a></h3>
+        <ul class="resumen-list">
+          <li>&quot;The Uneven Impact of Generative AI on Student Learning&quot; documenta que los efectos de la IA generativa varían según el nivel previo de preparación del estudiante, la disciplina y el tipo de tarea.</li>
+          <li>Los estudiantes con menor preparación previa pueden beneficiarse menos, o incluso verse perjudicados, sin andamiaje pedagógico adecuado.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Cuestiona narrativas simplistas de &quot;la IA nivela el terreno de juego&quot; y refuerza la necesidad de diseño instruccional diferenciado.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Investigación / Paper</div>
+        <div><b>Fuente:</b> arXiv (preprint)</div>
+        <div><b>Fecha:</b> Septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABCklEQVR4nK2VMW4EQQgEi5Pz5gfz/2ftD5oXtIO9xGcHK2SyQYIpGgQVfti8+LAHjqkqKKpnqupJyG9H4imVBxLvckyBreNm6lnIh30B0PH082//ckhNR/scCnhQXyirHOUGvx8N3nAoCQeaoyQbDpzYUYwJ2nHMSE2To/JKDwyODE5IVhzYZy4UetI7jtiAhUHxhoPEwYqFyaq3JLJMYtus9CCyFEdx4mUtxoGEREsOC5kQMN7pYYTkEEXa1eI4UnQP27KWG8FvqGVv7wkhjrXkACIFs52PF4m5GGSx22PYOBgZ0EqPe6/TcBCzvC8Airl0DWe/16f7Vvfa3agCi1RrjDY3u/7h7n8DxOPL91ZsBFsAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://arxiv.org/abs/2609.18676" target="_blank" rel="noopener">arxiv.org/abs/2609.18676</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">18</span><a href="https://arxiv.org/abs/2609.29874v1" target="_blank" rel="noopener">Marco de retroalimentación de IA adaptado al riesgo para educación en programación</a></h3>
+        <ul class="resumen-list">
+          <li>&quot;A Risk-Adaptive and Evidence-Constrained Framework for Generative AI Feedback in Programming Education&quot; propone ajustar la retroalimentación generada por IA en cursos de programación según el nivel de riesgo pedagógico.</li>
+          <li>Restringe las respuestas del sistema a evidencia verificable para prevenir retroalimentación incorrecta o engañosa.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Enfoque técnico concreto para mitigar el riesgo de &quot;alucinaciones&quot; en tutores de IA usados en cursos de programación.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Investigación / Paper</div>
+        <div><b>Fuente:</b> arXiv (preprint)</div>
+        <div><b>Fecha:</b> Septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABEElEQVR4nK2VQW5EMQhDH9XszQ1y/2P9G5gTuIsZVeq0iy9aVokliAMGKnyz+eDNbgBTVTBUz1TVHZd34EGYaXBDmE2MD6aA6LiZuufygwcA4+n7z/4GiENH+xgKeFBfKKsY5Qa/Lg3e8FASGpqjJBseOLFFggla8aBajXpyVF7lgxgLgROSFY8hmoxCT3rJQyZBMije8CBCQpEwWdUWI5NEts0qHw+MaIxGeNW3JLJJINGOB0b6OnqndeCKHCLpeKl1FFn2U/e7GMZ6te7uLySJsYlj7Wo7DTGiMLOcp2HoDEaTnT5snKdaQat8POe6DhzErGr7BAZx6RrOH+Y6XDJw7XJaYAGlMdrs7PqHvf8JvP6zDCFygsIAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://arxiv.org/abs/2609.29874v1" target="_blank" rel="noopener">arxiv.org/abs/2609.29874v1</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">19</span><a href="https://arxiv.org/abs/2609.21132" target="_blank" rel="noopener">La formación de posgrado en Matemáticas ante la era de la IA</a></h3>
+        <ul class="resumen-list">
+          <li>&quot;Mathematics Graduate Training in the Age of AI&quot; examina cómo los programas de posgrado en matemáticas deben adaptar la formación de investigadores ante la creciente capacidad de la IA para resolver problemas y asistir en demostraciones formales.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Relevante para programas de posgrado STEM que deben repensar qué competencias investigativas siguen siendo insustituibles frente a la IA.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Investigación / Paper</div>
+        <div><b>Fuente:</b> arXiv (preprint)</div>
+        <div><b>Fecha:</b> Septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABDklEQVR4nK2VMW5EQQhDH6vtzQ3m/sf6NzAncIqfFMmm2KDQDZItMOCp8C3mwY94IzFVNTd8quodyGsisYCpQ+IdxxR0d2uYeg/yW2LwhfUXyGvC0+bacyjA4fRBWXGUG/z5aPCCgyQxcaQkWXE4NjEgkDcclSKDAIpdL4+BOnR14+WOYSexhSS0quMJZWilCPSqjiCFYMVs9YgHJjASSz2E5DhEZKeHcJseURJa1pEoSoi3c5EHyoVHXKubI3HAsoh2ejymzhhgXNO7ueRrTUOc1c09pqo4V4Bh56c4cbB9L8nOP4xt3V6mlQc9AdSkQ+PZ9PIE4DpNY2rZy60HYLL1jwK7M41ndy/1D//+B/7fumq7mG49AAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://arxiv.org/abs/2609.21132" target="_blank" rel="noopener">arxiv.org/abs/2609.21132</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">20</span><a href="https://arxiv.org/abs/2609.10842" target="_blank" rel="noopener">Paper: el Daoísmo como marco filosófico alternativo para la IA en educación</a></h3>
+        <ul class="resumen-list">
+          <li>Propone conceptos clásicos daoístas (naturaleza del Dao, auto-cultivación, Zhenren) como lente para repensar preguntas éticas y ontológicas sobre la IA en el aula.</li>
+          <li>Busca diversificar un debate filosófico dominado por marcos occidentales, incorporando perspectivas asiáticas.</li>
+          <li>Sugiere que la &quot;auto-cultivación&quot; puede ofrecer un contrapeso conceptual a la dependencia tecnológica en el aprendizaje.</li>
+          <li>Contribución de carácter teórico, sin estudio empírico de aula asociado.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Amplía el repertorio conceptual disponible para las discusiones de ética de IA en el currículo, más allá de los marcos angloeuropeos habituales.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Investigación / Paper</div>
+        <div><b>Fuente:</b> arXiv (preprint)</div>
+        <div><b>Fecha:</b> 9 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABAUlEQVR4nK2VsW1EMQxDnw/p6Q3+/mP9DegJXopLilxSHISoFCCaIgV6yY86D17qjcZZa7EWa5+z1npn5LXxgZzjXt0gZ4Lx4Cw45OrmrPdGfvEA2Hj2+8/+1UjDNnOMCCnZN3G4y4ICN7CgEx5RIWyuqBMeVFtiKZIZj7MvwsYrqyM9KGktVNEJD9oGE5uaIUYAEwqxMwxNqQ3Fkbc0qY22LbNdjOEphXa6S4hRNEMelRAQSod60GrEmMx9EZM+7364S6n9JjXyRS0Ua6d3CmhMGd9HtaatdaxHqc84hMxyDIBNCcnpONdp4OQ+XPNc5+b+SuapLzWW0I40Xf/w738CmbLUgjpPe58AAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://arxiv.org/abs/2609.10842" target="_blank" rel="noopener">arxiv.org/abs/2609.10842</a>
+      </div>
+    </div>
+  </div>
+  <div class="section-title" style="background:#7C3AED"><span class="dot"></span> HERRAMIENTAS, MODELOS Y PLATAFORMAS</div>
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-icon" style="background:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#7C3AED">21</span><a href="https://platform.claude.com/docs/es/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5" target="_blank" rel="noopener">Anthropic lanza Claude Fable 5.1 y Claude Mythos 5.1, con recorte del 75% en costos de caché</a></h3>
+        <ul class="resumen-list">
+          <li>Anthropic lanzó dos nuevos modelos de la familia Claude (Fable 5.1 y Mythos 5.1), disponibles de inmediato en AWS, Google Cloud y Azure.</li>
+          <li>El costo de lectura de caché se redujo un 75%, de USD 1 a USD 0,25 por millón de tokens.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> La reducción de costos de acceso vía API puede abaratar el desarrollo de aplicaciones educativas institucionales basadas en modelos Claude.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Modelos y plataformas</div>
+        <div><b>Fuente:</b> Anthropic / seguimiento especializado de lanzamientos de modelos de IA</div>
+        <div><b>Fecha:</b> 1 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACsAQAAAADOSnp1AAABuUlEQVR4nLWXwY0kORADQ4P5Ux60/2a1B5EW8B7Vn8MNDphFrj4C8kFkhSim6pQf1nz9VIVfluecw2HuuffeOXfOOb8V+bmMrU1ITKHa6k7fzGFm8h5mhMuc34v8T9m804Sb2z8W+c/6BuDCIe8Xb+57TRtbJTFScJH38YL/Kl1YOsu0fQR5weWVtltMhEaTDxuhO32jiTWQ5KHjEhNUSTC2JoZmSbslTUgNtZSsaRNqMM8HpFnjXZMapc9pCkv+RouY1mJqFvvmQWKbNFX3eFsRjYJp4h5vH9ymqSDd8ncTm7aqoY1uMTEW0tbGFM0Sk2MYgOvFF0yctfz2oUCT1DzFrdnw2TGfa7TFhCYVQyXFJ23XZhrwRKAkbdZ80japKZhKIGu88wxhLCa1do13jfRJKSnd67uJgZBKkrR7GUvTELRWgSzmtzWNz/wp2eL9RSYnDJnAdOAuvZGPXG/e8OLNC94Xt/KkbQ0pSSLWvTwBWiCmRnRrXn5TZpDXMDAhk9l6f8+V25OSk17PGu/vz957Mpnxhpw1f6OmrVSUtXfs1+MQGeBi0NytmQZYklTix4Y7d+cv/hf/A/Mcn76aKvBxAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://platform.claude.com/docs/es/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5" target="_blank" rel="noopener">platform.claude.com/docs/es/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#7C3AED">22</span><a href="https://blog.google/intl/es-419/actualizaciones-de-producto/3-8-flash-and-3-8-flash-cyber/" target="_blank" rel="noopener">Google lanza Gemini 3.8 Flash y Meta presenta Muse Spark 1.3</a></h3>
+        <ul class="resumen-list">
+          <li>Google lanzó Gemini 3.8 Flash y una variante restringida (&quot;Cyber&quot;) para socios verificados.</li>
+          <li>Meta lanzó Muse Spark 1.3 el mismo día.</li>
+          <li>Ambos lanzamientos se suman a una semana de actualizaciones aceleradas entre los grandes laboratorios de IA.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> El ritmo de actualización, con nuevos modelos cada pocas semanas, complica que las políticas universitarias y las evaluaciones institucionales de herramientas se mantengan vigentes.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Modelos y plataformas</div>
+        <div><b>Fuente:</b> Google / seguimiento especializado de lanzamientos de modelos de IA</div>
+        <div><b>Fecha:</b> 2 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACsAQAAAADOSnp1AAABrklEQVR4nLWXsXEkMRADmyr5YAaXf1iXQTMCvEH9WydVnWqe640BzoIYgFzlxTofr6rwZvmstThr77PZ57DPWutdkNflT8phy8bzzELKmcH+4CwODwh5nAhnvQ/yTd8AZnEeh7DxNw3+gP04cRPOk/0LkG/K2Go1FQm11RHs5ebS8G9tmMGmbW+/EqttO4StUA200FSYwi6G0EBSBRzim0ZLSItNjXOchBJspVokY5wEJCU1NLRkTCfkfmK5hzt3lppCQ1PNHCdiLLZE1bm5xCgmCZXShDFskkglSSSSUb6lxpRE7ZhOIGlSxNBoxnyQjbtsN0+AsPKc1ElaMPH+ytzMUwKphV5fHOLb66tWYowZ1Am2IVFomjjHiU2JkrSGOX2bfMm7bVAy599YmlSIlpq52anBXj8h6aCf2CuVtk0A5/i2mq+56Q37Mb5Lw43KNA1OzeUHxwU9POjZ7Cd7Zeg+2LaWO5P34jPlgwi0itobOnN52WrE5m7RMexPzhaA46K7Z+Hsu2ETVvdykfdBfrjHagBuXjKq79pSKn9Na8pPvB1XItxQHup7/cd38R8gxa720CYTtgAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://blog.google/intl/es-419/actualizaciones-de-producto/3-8-flash-and-3-8-flash-cyber/" target="_blank" rel="noopener">blog.google/intl/es-419/actualizaciones-de-producto/3-8-flash-and-3-8-flash-cyber/</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#7C3AED">23</span><a href="https://openai.com/es-419/index/gpt-6-astra/" target="_blank" rel="noopener">OpenAI lanza GPT-6 Astra, el primer modelo en cruzar el umbral crítico de ciberseguridad</a></h3>
+        <ul class="resumen-list">
+          <li>GPT-6 Astra es descrito como el primer modelo disponible públicamente en cruzar el umbral &quot;crítico&quot; de capacidad en ciberseguridad.</li>
+          <li>Precio: USD 10 por millón de tokens de entrada y USD 50 por millón de tokens de salida; las funciones avanzadas de ciberseguridad quedan restringidas a organizaciones verificadas.</li>
+          <li>Se enmarca en una semana de lanzamientos simultáneos de los principales laboratorios de IA.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> El salto de capacidad tiene implicaciones para la gobernanza del uso de IA en investigación y para las políticas de acceso restringido en entornos académicos.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Modelos y plataformas</div>
+        <div><b>Fuente:</b> OpenAI / seguimiento especializado de lanzamientos de modelos de IA</div>
+        <div><b>Fecha:</b> 3 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABRUlEQVR4nK2WwY1jMQxDn4LcqQ5+/2W5A6oC7uEPBtjsHDLR+mYBEuhn2lKFlzWP1wi8GZqqmpmpmu6pqncT/w3hxEGJRJzYn+tiCnS6jZup9xN/Ds3Roc7168S/1xOA1qRaZ1frgQJBE1koi1rlBn9vGz5nT5IYGSInyaKWYxMSJEALTxA5NiKJFFa6LGSCfDt2o8uWwMGykhV7MOLWZq94WchRHH3BW3nCJDIKeMdLkQIR92WuzmhAEsZe6kJBBkVS2NQygBTZIVrpspU4Ihi08dcTMWhOkzF0Pu8dOIosx0RZ8aowiLngcI3grLyqyIIoWCt/YdtRAMPKq0niYOI49oLXY6qKCmqK4fK2b+dm5XhzxgdTzAxtTHX3sm/rgnNddT+oZd8eDpAevJiZbl6CgKxs/PWk7g+/cTcwixngP86FfwAMpQt1Dw8qCgAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://openai.com/es-419/index/gpt-6-astra/" target="_blank" rel="noopener">openai.com/es-419/index/gpt-6-astra/</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#7C3AED">24</span><a href="https://blog.google/innovation-and-ai/products/gemini-notebook/new-study-tools-september-2026/" target="_blank" rel="noopener">Google lanza nuevas herramientas de estudio &quot;vuelta a clases&quot; en Gemini Notebook</a></h3>
+        <ul class="resumen-list">
+          <li>Conversación de voz en tiempo real en casi 100 idiomas y grabación de audio de clases desde la app móvil.</li>
+          <li>Nueva sección de &quot;Informes&quot; con cuestionarios interactivos, tarjetas de memoria y mapas mentales generados a partir de las fuentes del estudiante.</li>
+          <li>Videos educativos de ~60 segundos en más de 80 idiomas que combinan narrativa y animación.</li>
+          <li>Estudiantes universitarios elegibles en EE. UU. reciben un año gratis de Google AI Pro; estudiantes en más de 140 mercados, un año de Google AI Plus.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Amplía las herramientas de estudio ancladas en las fuentes propias del estudiante, reduciendo el riesgo de alucinaciones frente a chatbots generalistas.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Herramientas de IA generativa</div>
+        <div><b>Fuente:</b> Google Workspace Updates / Google Blog</div>
+        <div><b>Fecha:</b> 15 y 18 de septiembre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACsAQAAAADOSnp1AAABvUlEQVR4nLWXMY4tNwwESw+bt27w7n+sd4PmCcrBrAPDf4M1aCUDMCgIPc0mdeQPZ15/qsIvy3POGeYM3MM5M+ec30J+Kmtz4M4ZqW+0W+w54Lu57Z33gTm/h/xcnjOXvN+ffPzPkH+fLwDSA+UOdtbYLyLMyYc7Hz2XuMQ+vdB/lC50hY1qaaShTVV32F+T4XKZQAMc8tnRhBYxJZpSS7Y0eZSwiQ2karfYGGmEUKFmi22sNU0Tk0azxo7EtEkJLWv3bp5ficmjyp4mpWmxkFRi9/Suz4eiBrPmQVNpAzamwpYHv+D98VCYm5MMmaWsQmJ8pCaGLmoiNQH7NH3Mlr8bhbSVlLSw6JMmSr8Nw2ae1CerGktWNaGE1EA1RNcytjGIfzd96ZImL94dvD2lU8JN9vxdBR9hhJilefmC97nkiAOD0K17N2pIQBNs1zxoU5pCY5/UWtxPUiFIbZq1/H7NuZ+g5HCBO/f3kJ/vbVE1CcXu9Q5QfAaa+W6epdkgk1zn3jJAZqt3Trnl/bkFuL2AS28pWmotfm8qpms5WKqIBZ6dcy2/tWL53ny6uEMUaHxmmUnL1mw4/+O7+C9njJxm+uwJeQAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://blog.google/innovation-and-ai/products/gemini-notebook/new-study-tools-september-2026/" target="_blank" rel="noopener">blog.google/innovation-and-ai/products/gemini-notebook/new-study-tools-september-2026/</a>
+      </div>
+    </div>
+  </div>
+  <div class="section-title" style="background:#0284C7"><span class="dot"></span> EVENTOS E INICIATIVAS</div>
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-icon" style="background:#0284C7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#0284C7">25</span><a href="https://events.educause.edu/annual-conference" target="_blank" rel="noopener">Conferencia Anual EDUCAUSE 2026 pone la gobernanza de IA en el centro de la agenda</a></h3>
+        <ul class="resumen-list">
+          <li>La conferencia anual reúne a líderes de tecnología educativa de todo el mundo con la IA como eje central de la agenda.</li>
+          <li>Incluye sesiones sobre gobernanza de IA, alfabetización en IA para personal administrativo y estudios de caso institucionales.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Principal referente internacional en tecnología para la educación superior; sus conclusiones suelen anticipar tendencias que luego llegan a Latinoamérica.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Evento</div>
+        <div><b>Fuente:</b> EDUCAUSE</div>
+        <div><b>Fecha:</b> 29 de septiembre al 2 de octubre de 2026 (Denver, EE. UU.)</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABQElEQVR4nK2Wy61jMQxDj4Psjzu4/ZeVDqgKOItgZvE+QBKPdyIgwqYoWat8OXP7isCL0Ky12JthrT1rrVcTv0N3yvCAnewHZT7nujGL0VGQWa8n/gLNktF5O/EHaHeNw3XKZSFD15VgD7hWNuRfuCEfc9G2KU3/Bp97YtgUVzdlNj3RayM7zsDGE39RCS2YxMQDvRINNbQmnHDVokkaEA+058mApjX1xBMxKYQmgTO9oInYKsnRG1MqSoM0Z74XS4NGTrhSUCWxHul1c+yzmtcA+2BOkDZGTI14VEdbTDFIPdYrT0fUox66Q5wrzGO/lfjzvUJJown0eK6aBJomR/0IVKsJOZpfd8oMWYA4O4f/NgyUlbXdJ/sEwOzuUX28cYlfuMiMM4uLfL4zkTZNamsbDmc0CT7raA/quP7jXvgHnkP8Rg6GAxMAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://events.educause.edu/annual-conference" target="_blank" rel="noopener">events.educause.edu/annual-conference</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="ideas">
+      <h4>Ideas clave del mes</h4>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>Rediseño de la evaluación como respuesta dominante a la IA: exámenes orales, &quot;specifications grading&quot; co-creado con estudiantes y cuadernillos en papel ganan terreno frente a la sola detección de uso de IA (fichas 10 a 13).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>Del prohibicionismo al menú de políticas por curso: MIT y Harvard convergen en que la decisión sobre el uso de IA debe tomarse por curso según objetivos de aprendizaje, no como regla institucional única (fichas 3 a 5).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>Brecha persistente entre adopción y evidencia: pese a la inversión masiva, la investigación rigurosa sobre los beneficios de la IA para el aprendizaje sigue siendo escasa, y los estudios disponibles apuntan a efectos desiguales según la preparación previa del estudiante (fichas 16 y 18).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>Brecha de gobernanza, global y regional: en América Latina 87% de las instituciones usa IA pero solo 26% tiene estrategia formal; en EE. UU. solo 10% de los rectores académicos reporta una estrategia centralizada (fichas 2 y 7).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>La alfabetización y la autorregulación pesan más que la restricción de herramientas: los estudiantes que formulan reglas propias de uso obtienen mejores resultados (ficha 17).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>La formación docente se consolida como palanca estratégica, con formatos que van desde microcredenciales breves (Google) hasta formación de formadores por disciplina (MIT Schwarzman) (fichas 14 y 15).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>Carrera acelerada de lanzamientos de modelos (Claude Fable/Mythos 5.1, Gemini 3.8 Flash, GPT-6 Astra) y de funciones educativas (Gemini Notebook), que vuelve obsoletas en semanas las evaluaciones institucionales de herramientas (fichas 22 a 25).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>Voces críticas ganan visibilidad: Lepore y Berg cuestionan la adopción acrítica de IA desde el pensamiento crítico y las humanidades, no solo desde el riesgo de plagio (fichas 5 y 6).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>Alianzas universidad-proveedor y autorregulación de la industria: licencias institucionales a gran escala (Sídney) con tensiones laborales, y exploración de un organismo de estándares entre OpenAI, Anthropic y Google (fichas 8 y 9).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>La UNESCO fija el marco normativo: la Declaración Ministerial prioriza autonomía docente, gobernanza de datos, equidad y código abierto (ficha 1).</span></div>
+    </div>
+    <div class="why">
+      <h4 style="color:#fff;">¿Por qué importa?</h4>
+      <p>Estos hallazgos orientan decisiones institucionales informadas para aprovechar el potencial de la IA y minimizar riesgos académicos, éticos y pedagógicos.</p>
+      <div class="why-cta">¡Explora, infórmate y compara! Escanea los códigos QR para ampliar cada hallazgo.</div>
+    </div>
+    <div class="cats">
+      <h4>Secciones</h4>
+        <div class="cat-row"><span class="cat-swatch" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span>Políticas, lineamientos y gobernanza</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#B45309"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg></span><span>Evaluación</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#0F766E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/></svg></span><span>Formación docente</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></span><span>Investigación y papers</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></span><span>Herramientas, modelos y plataformas</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#0284C7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span>Eventos e iniciativas</span></div>
+    </div>
+  </div>
+  <div class="bottom-note">Vigía IA Gen — documento interno de circulación entre colegas. Fuente base: consolidado mensual Vigía IAgen, Universidad de los Andes — DIDACTA / Conecta-TE.</div>
+</div>
+</body>
+</html>
