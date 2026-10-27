@@ -1,0 +1,316 @@
+<title>Vigía IA Gen — Boletín de octubre</title>
+<style>
+  :root{--navy:#0B1B3A;--teal:#12A594;--teal-2:#0E8074;--paper:#F4F6F8;--ink:#0B1B3A;--muted:#5B6B82;--line:#E3E8EE;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--paper);color:var(--ink);}
+  .page{max-width:1180px;margin:0 auto;background:#fff;box-shadow:0 0 40px rgba(11,27,58,.08);}
+  header{background:var(--navy);color:#fff;padding:32px 40px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;overflow:hidden;}
+  header::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 120%,rgba(18,165,148,.25),transparent 55%);pointer-events:none;}
+  .brand{display:flex;align-items:center;gap:18px;position:relative;z-index:1;}
+  .brand-mark{width:64px;height:64px;flex-shrink:0;}
+  .brand h1{margin:0;font-size:34px;line-height:1;letter-spacing:1px;font-weight:800;}
+  .brand h1 span{display:block;color:var(--teal);font-size:34px;}
+  .header-right{position:relative;z-index:1;text-align:right;max-width:420px;}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;font-weight:700;font-size:13px;letter-spacing:.5px;padding:7px 16px;border-radius:20px;margin-bottom:10px;}
+  .header-right h2{margin:2px 0 6px;font-size:20px;}
+  .header-right p{margin:0;color:#C9D3E0;font-size:13.5px;line-height:1.5;}
+  .section-title{display:flex;align-items:center;gap:10px;color:#fff;padding:12px 40px;font-size:16px;font-weight:700;letter-spacing:.5px;}
+  .section-title .dot{width:9px;height:9px;border-radius:50%;background:#fff;opacity:.85;}
+  .findings,.events{padding:0 40px;}
+  .events{padding-top:22px;padding-bottom:10px;}
+  .finding{display:grid;grid-template-columns:74px 1fr 230px 130px;gap:20px;align-items:start;padding:26px 0;border-bottom:1px solid var(--line);}
+  .finding-icon{width:64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;}
+  .finding-icon svg{width:32px;height:32px;}
+  .num-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:var(--navy);color:#fff;font-weight:800;font-size:13px;margin-right:8px;flex-shrink:0;}
+  .finding h3{margin:0 0 10px;font-size:17px;line-height:1.35;display:flex;align-items:flex-start;}
+  .finding h3 a{color:var(--teal-2);text-decoration:none;}
+  .finding h3 a:hover{text-decoration:underline;}
+  ul.resumen-list{margin:0 0 10px;padding-left:19px;}
+  ul.resumen-list li{font-size:13.5px;color:#33425c;line-height:1.55;margin-bottom:5px;}
+  .finding p.relevancia{margin:0;font-size:13px;font-weight:700;color:var(--teal-2);line-height:1.5;}
+  .meta{font-size:12.5px;color:var(--muted);line-height:1.6;padding-top:2px;}
+  .meta b{color:var(--ink);}
+  .qr-box{display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .qr-img{width:88px;height:88px;border:1px solid var(--line);border-radius:6px;padding:4px;background:#fff;}
+  .qr-link{font-size:10.5px;color:var(--teal-2);text-decoration:none;text-align:center;word-break:break-all;max-width:130px;}
+  .qr-link:hover{text-decoration:underline;}
+  .preprints{padding:24px 0 22px;}
+  .preprints h4,.ev-sub{margin:0 0 12px;font-size:13.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--teal-2);}
+  .pre-row{display:flex;gap:20px;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+  .pre-row p{margin:0;font-size:13.5px;line-height:1.55;color:#33425c;}
+  .pre-row .qr-box{flex-shrink:0;width:130px;}
+  @media (max-width:900px){.pre-row{flex-direction:column;}}
+  .pre-row a,.ev-table a{color:var(--teal-2);font-weight:600;}
+  .ev-sub{margin:26px 0 12px;}
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;}
+  .ev-table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5;min-width:640px;}
+  .ev-table th{text-align:left;background:var(--paper);color:var(--ink);font-size:12px;letter-spacing:.4px;text-transform:uppercase;padding:10px 14px;border-bottom:1px solid var(--line);}
+  .ev-table td{padding:12px 14px;vertical-align:top;color:#33425c;border-bottom:1px solid var(--line);}
+  .ev-table tr:last-child td{border-bottom:none;}
+  .ev-date{font-weight:700;color:var(--ink);white-space:nowrap;}
+  .ev-note{margin-top:6px;font-size:12px;color:var(--muted);word-break:break-all;}
+  .ev-reg{font-size:12px;word-break:break-all;}
+  .footer{display:grid;grid-template-columns:1.3fr 1fr 1fr;background:var(--navy);color:#fff;margin-top:22px;}
+  .footer > div{padding:28px 32px;}
+  .footer h4{margin:0 0 16px;font-size:13.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--teal);}
+  .ideas,.why{border-right:1px solid rgba(255,255,255,.12);}
+  .idea-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;font-size:13px;line-height:1.5;color:#DCE3EE;}
+  .idea-row svg{width:17px;height:17px;flex-shrink:0;color:var(--teal);margin-top:1px;}
+  .why p{font-size:13px;line-height:1.6;color:#C9D3E0;margin:0 0 14px;}
+  .why-cta{font-size:12.5px;font-weight:700;color:var(--teal);}
+  .cat-row{display:flex;gap:10px;align-items:center;margin-bottom:11px;font-size:12.5px;color:#DCE3EE;}
+  .cat-swatch{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .cat-swatch svg{width:13px;height:13px;color:#fff;}
+  .bottom-note{text-align:center;font-size:11.5px;color:var(--muted);padding:18px 40px 26px;}
+  a:focus-visible{outline:2px solid var(--teal);outline-offset:2px;}
+  @media (max-width:900px){
+    .finding{grid-template-columns:1fr;}
+    .finding-icon{width:48px;height:48px;}
+    .footer{grid-template-columns:1fr;}
+    .ideas,.why{border-right:none;border-bottom:1px solid rgba(255,255,255,.12);}
+    header{padding:26px 20px;}
+    .findings,.events{padding-left:20px;padding-right:20px;}
+    .section-title{padding:12px 20px;}
+    .bottom-note{padding:16px 20px 22px;}
+  }
+</style>
+<div class="page">
+  <header>
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="26" r="22" fill="#0B1B3A" stroke="#12A594" stroke-width="2"/>
+        <circle cx="32" cy="26" r="16" stroke="#12A594" stroke-width="1" opacity=".5"/>
+        <circle cx="32" cy="26" r="9" stroke="#12A594" stroke-width="1" opacity=".5"/>
+        <path d="M32 26 L32 12 A14 14 0 0 1 44 33 Z" fill="#12A594" opacity=".55"/>
+        <circle cx="32" cy="26" r="2.5" fill="#12A594"/>
+        <rect x="20" y="50" width="24" height="4" rx="2" fill="#0B1B3A"/>
+        <rect x="29" y="46" width="6" height="6" fill="#0B1B3A"/>
+      </svg>
+      <h1>VIGÍA<span>IA GEN</span></h1>
+    </div>
+    <div class="header-right">
+      <div class="pill">🔊 BOLETÍN MENSUAL</div>
+      <h2>Octubre de 2026</h2>
+      <p>Noticias, investigaciones y tendencias sobre inteligencia artificial en educación superior.</p>
+    </div>
+  </header>
+
+  <div class="section-title" style="background:#4F46E5"><span class="dot"></span> ARTÍCULOS Y NOTICIAS</div>
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">1</span><a href="https://www.iesalc.unesco.org/en/articles/heilab-new-platform-resources-projects-and-innovation-higher-education" target="_blank" rel="noopener">UNESCO IESALC lanza HEILAB, plataforma de innovación pedagógica para educación superior</a></h3>
+        <ul class="resumen-list">
+          <li>Comunidad de aprendizaje y observatorio de buenas prácticas creado con el Centro de Pedagogía Universitaria (CPU).</li>
+          <li>Incluye proyectos documentados, recursos educativos, prácticas replicables, foros y noticias.</li>
+          <li>Los miembros acumulan puntos por documentar proyectos, publicar recursos o replicar experiencias.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Espacio de intercambio de experiencias docentes en América Latina y el Caribe, incluidas las relacionadas con IA.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Recursos abiertos / Organismos</div>
+        <div><b>Fuente:</b> UNESCO IESALC</div>
+        <div><b>Fecha:</b> 2 de octubre de 2026 (actualizado el 6 de octubre)</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALwAAAC8AQAAAADqMvkGAAACAUlEQVR4nLWYsZEcMQwEm1/vDzPY/MPaDBoRjIx9OaqTjBOPJlFFLDAYDLCrvDzz9foe3jDMWmuY2Qx7ZmbPrLXeeepvBmw1UFpCTGz1ZBzMAmR3JnfcwKz3nvrL+QYIu3uVO7Ng3v7cfxlmXJO19iD3fz318tha0VqbJD2Nx3KDf1xuOOmDtm1MS5UmtO1RHxbQNEJtm+jhOGykiRZKwCQnfXyz8coi7NIJcsGcrStoxLSYIqYcx0ORYNBq8GyusISkKVQwWM/6aIUUNdi2krO1+8W+yr1DNsAwF5zu7fhQz6SkWJrDmGsIbUgSo0kPc5BYEkkNSdrjGoUXAbhB0b3XWY3i6VOJAOhP3zqLR6xAQw0o9SzPV/fIxXQhcA3CPq0f1hK1UoV6luffLABhu8iSrkXvk5ivsnJDWB3YhJsL7rMaFdomgUJTmtM8jzV9FJBaUznMwTsLJ7vThgeeHJ7hrimDjHu5KPfs+zDPCTRWS9IE8CzPi4UgNcWQ9PAMZ/nRwVqkTziH6ypVbdMgBTjso1WU1qRPA25O4/FQsAVajIbjs49oU3+L+wdy1VoTqIihno3ja9ZaDFiH7gYG/cBeK/zo3xPPYTxEQSIP6EIPaxSA2QV3hs5VPrE7L2c9eLNy79sP7LUpJKSSJ2ln8QDMI39U+/Svs7PP6/uT/31+Aexq7OzQOuOyAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.iesalc.unesco.org/en/articles/heilab-new-platform-resources-projects-and-innovation-higher-education" target="_blank" rel="noopener">www.iesalc.unesco.org/en/articles/heilab-new-platform-resources-projects-and-innovation-higher-education</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#4F46E5">2</span><a href="https://hepi.ac.uk/2026/10/20/the-next-university-crisis-will-not-be-about-students-using-ai" target="_blank" rel="noopener">La próxima crisis universitaria no será por el uso de IA de los estudiantes</a></h3>
+        <ul class="resumen-list">
+          <li>La IA se extiende a reclutamiento, administración, investigación y ciberseguridad, no solo al aula.</li>
+          <li>Licencias y pilotos miden adopción, no capacidad de uso responsable (&#x27;resiliencia en IA&#x27;).</li>
+          <li>Cinco dimensiones de preparación: visibilidad, rendición de cuentas, aseguramiento, capacidad y resiliencia.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Amplía la conversación de integridad académica hacia la gobernanza institucional integral.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Gobernanza / Opinión</div>
+        <div><b>Fuente:</b> HEPI (Dra. Ismini Vasileiou, De Montfort University)</div>
+        <div><b>Fecha:</b> 20 de octubre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACsAQAAAADOSnp1AAABwklEQVR4nLWXQYolSQxDXxS1V9zg3/9Y/wbPJ1AvsmloqB6owpObBC0UxlZIjlO++ObjKxS+Cc85B+YczlxmzpxzvkvyNfxJGU56pyMvpMwO9wdzmMwlkzsKc75P8o+6Ad6QyUnu5P2TAv8Dvq/M65R5Mz8m+QJOAW5w3rmWdIn7eMG/oAuucNO2JlJBfIAdboWWllSSCGvcoSmkgSiga9yV2NCn9matJ5VibYFaSpZm+TFk4N65NSc3dNzRIIYCtMYSpFt1QwZ0eE2m9OV06e70et+8kIPA9XbJB2nFaIKmSUK2dBKDNkAicU/fBdNgjNBi1uquRYVAqDF79xLTaJtq0rDXE9vEGFKFtXtJDaGobaiw5yc1NqVNpTZbs/wcGHhfD51XL7LlJ5855oXQOy+AQ+5av59Ol6ZFs9dvscXUR9yYLGaD/pa4NGm28vIYfi9TOT1hYM0H7bM55NkhImt5+QmkR96TQPwJyb/3k6hgLDSAq3sVNNK0tW7lJQJ9VGIb0bXcsVUotfr8l7g/mANknHtIrufO3ixRSEvy2OCWBj/+nHDLm8uZtfcOtjakmBTd6zcC1id3SFrc8pP/8V38C7MZpkNNYZYCAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://hepi.ac.uk/2026/10/20/the-next-university-crisis-will-not-be-about-students-using-ai" target="_blank" rel="noopener">hepi.ac.uk/2026/10/20/the-next-university-crisis-will-not-be-about-students-using-ai</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title" style="background:#16A34A"><span class="dot"></span> PAPERS E INFORMES DE INVESTIGACIÓN</div>
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">3</span><a href="https://www.cehd.umn.edu/AI-expert-consensus-report-2026" target="_blank" rel="noopener">Informe de consenso de expertos (Univ. de Minnesota): dónde ayuda y dónde perjudica la IA al aprendizaje</a></h3>
+        <ul class="resumen-list">
+          <li>Treinta especialistas identificaron 65 procesos de aprendizaje afectados por la IA y alcanzaron consenso en 42.</li>
+          <li>&#x27;Paradoja de la IA generativa&#x27;: ayuda en la consolidación (autoevaluación, retroalimentación, tutoría) pero puede dañar el aprendizaje inicial y el pensamiento de orden superior si piensa por el estudiante.</li>
+          <li>Se sugiere la secuencia: trabajar primero sin IA, luego usarla para reforzar y, por último, pensar de forma independiente. Los expertos califican la evidencia disponible como débil.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Aporta un marco práctico para decidir en qué momento de la secuencia didáctica permitir IA.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Investigación / Pedagogía</div>
+        <div><b>Fuente:</b> Universidad de Minnesota (CEHD)</div>
+        <div><b>Fecha:</b> Octubre de 2026 (reseñado por SchoolFinder Group el 20 de octubre)</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMAQAAAACGu3yTAAABP0lEQVR4nK2WwY0cMAwDx4f90x1s/2VtB6MKmMcFedwhwGUV/0RAhEXTtE/5subjKwI/hOacw9wzc7hzzvlp43cIWxuAUlt9f1/MYabBw2HOzxv/Bt0XF/33xu+QPtPcu+VK4XkdXpR0wXW84J/ywvva07ZKU38Xb3M9hktPTi4yl+78VayaxCxnjEn6aVrNgksoKpIgC9+jxbYlJmah/Qd3wnBOCa/M5m7XENq2KWz0enDLcDoAiO/nF7bU0lTDJnOoKYGWwM5fErSCNCu9qLbYKAmsvJoIVLAhKy6bBFKIzc73iJGWxt2MtZKmCcjiDmGh2NDK0l9tJSKhutLrkw9icJVfH7QOY15AuL6fEw/myuUFvDhk8aY9AJCZS29enM2MAJfbODPP5/Idsib2M+9X/gJMaBHTxTme//gv/AU/oQ+ZqpvCrgAAAABJRU5ErkJggg==" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.cehd.umn.edu/AI-expert-consensus-report-2026" target="_blank" rel="noopener">www.cehd.umn.edu/AI-expert-consensus-report-2026</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">4</span><a href="https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2026.1953700/full" target="_blank" rel="noopener">Retroalimentación con IA: preparación docente, juicio evaluativo y calibración metacognitiva</a></h3>
+        <ul class="resumen-list">
+          <li>La retroalimentación de IA no garantiza aprendizaje y puede generar falsa sensación de progreso.</li>
+          <li>La preparación docente es sobre todo pedagógica: dónde ubicar la retroalimentación, qué hacen los estudiantes antes y después y qué evidencia se recoge.</li>
+          <li>Propone un ciclo conceptual de siete etapas; la IA no debe ser el referente de calibración. Requiere validación empírica.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Marco conceptual para diseñar tareas con retroalimentación automática sin perder el desarrollo del juicio del estudiante.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Evaluación / Investigación</div>
+        <div><b>Fuente:</b> Frontiers in Education (Fidalgo y Hashem)</div>
+        <div><b>Fecha:</b> 8 de octubre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACsAQAAAADOSnp1AAABsElEQVR4nLWXQYocMBADy8ve5R/M/581Pyi/QDl4EgiZBHbp+GLog2jaakle5c05H++q8MXyWWvB2nvvtdZhn7XWV0H+Vm5llcMz8jjSOoV9Fkfk5JATOOvrIP8o7w3d4Zmzvg3yx/m8l8sFD5/5foNvyimweKS49y7pEPZyg7+VNjiCTdtaQUmpbTuErVAaU4EgTGEXS1BiakGd6juABWuTe01h14ppiVpqprDbANFQgDSM9S1NEZs2CIzNuzGvcSMmczwR0ja2iSmSOQ4W9Q6FQOIcdkJLGqlEOrXzoglVtcQ4xxPaJrUtQrBjPOFyWsVyn3UGe5kNcMIJRzZ0zWB/sroI7hTWAwmdyRD0qnZoorQwN+8IiVe/k87x+wOI54CL9Ml+Ph9nxi9ppFeu9DWXOR20JG1Lf27P1M4Hf+kITZo5HWwabTXXl3FMT4pNDLFpypwOanLl+/qlZMovl7DLfrIp233Aocz2ylVJkxCljmU2gcb7pER0kCfVCrzsrM75jmh4JbcoTOYTpX1J1rXP0b4tNymnDOaT1mK1XEmZy4NydzOtJQTG/PI//ot/AII4sZOvaC0gAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2026.1953700/full" target="_blank" rel="noopener">www.frontiersin.org/journals/education/articles/10.3389/feduc.2026.1953700/full</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">5</span><a href="https://www.mdpi.com/2227-7102/16/10/1704" target="_blank" rel="noopener">Gobernar la IA generativa en la educación superior: análisis de 36 universidades y voces estudiantiles</a></h3>
+        <ul class="resumen-list">
+          <li>Análisis de políticas de 36 universidades (Dinamarca, Reino Unido, EE. UU. y Países Bajos): tono positivo hacia la enseñanza y negativo hacia ética y la IA en sí.</li>
+          <li>Entrevistas a estudiantes de posgrado muestran incertidumbre sobre uso aceptable, declaración de uso y expectativas docentes.</li>
+          <li>Recomienda guías a nivel de programa y curso, expectativas consistentes de declaración y mayor alfabetización en IA.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Confirma que las políticas generales no bastan: los estudiantes necesitan claridad en el nivel de curso.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Políticas universitarias / Investigación</div>
+        <div><b>Fuente:</b> Education Sciences (MDPI) – Sun, Møller y Dohn</div>
+        <div><b>Fecha:</b> 13 de octubre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABE0lEQVR4nK2VsXFDMQxDH33uwQ3+/mP9DcAJkMJOYTvFDxN1wh1wlABBFV7W3HhbF4Cpqumu6pqqukJ5B+6EYSCjCbPRuDEFikbD1DXKT4BOTqZ/Q/kARvQvKa+AggqEUFYa5QY/Nw1eaJAkCUYkyUrD3yGzZC/n8HMOE6yNxm00NWN0ZIRXd5oizQmaTp9LbzWGPgq3V97iWPHDE++8vamZhmGKw6v7wE5QEDL2zlsFWwkkWmYMCzsK8jIfiBMo0OhYeVs+AM7Dg4ps+hQjh+jxeFdneQRDUfxIyrbXcdHdc5HyCSR+tpDwH3p9xGmqezXHHYBjTAvc5y7rOA7IYtljThxHTiJ278WAI7T3tv7h3/8CrRnCwFWJTrEAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://www.mdpi.com/2227-7102/16/10/1704" target="_blank" rel="noopener">www.mdpi.com/2227-7102/16/10/1704</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">6</span><a href="https://edworkingpapers.com/ai26-1598" target="_blank" rel="noopener">Ensayo aleatorizado: un tutor de IA integrado al curso redujo calificaciones</a></h3>
+        <ul class="resumen-list">
+          <li>2.379 estudiantes de pregrado y 30 instructores en una gran universidad pública de EE. UU.</li>
+          <li>El acceso al tutor de IA redujo las notas finales en 0,37 desviaciones estándar.</li>
+          <li>La participación en el LMS cayó 0,90 desviaciones estándar.</li>
+          <li>Pérdidas mayores entre estudiantes de primera generación.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Evidencia que contradice resultados positivos previos; subraya que el diseño pedagógico importa más que el acceso.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Informes de investigación</div>
+        <div><b>Fuente:</b> EdWorkingPapers (Annenberg, EdWorkingPaper 26-1598)</div>
+        <div><b>Fecha:</b> Octubre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABCklEQVR4nK2Vsa0bQAxDnwz3vA28/1jegDfBS+Eq+SkcISoJiCAoiRr5re6DP+oL4M7MPTMwd2a+afkJaHmnl6Ldcdwh9MUNd75r+RtwD+Xcf2n5AaR3Xr72HBFCO5e44ngyUOAWBrrgQLWFRtUVRxtSkdSsdDzzsVR6GO/GD5qiaa1tdn4kFmkjdumHQCVVlp6CbRJTu5tt0xYryJJDSUzQ4s7TpiWYNs1yLpCUfFZsqaPBapR2NxdFotC443hyMmHiOQyudl21FsHubv9xZwZOKJdkn+tDhwZWd/vJ9XJ5Mee98uOT68kJr/Ba6XgCMN4A573KZKqVGFt2u/5g5lwK92BXOuY//P1fMDLKZA0UHZAAAAAASUVORK5CYII=" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://edworkingpapers.com/ai26-1598" target="_blank" rel="noopener">edworkingpapers.com/ai26-1598</a>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="finding-icon" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></div>
+      <div>
+        <h3><span class="num-badge" style="background:#16A34A">7</span><a href="https://ifmnoticias.com/educacion/la-ia-ya-esta-en-casi-todas-las-universidades-de-america-latina-pero-solo-una-de/" target="_blank" rel="noopener">Estudio UNESCO IESALC: 87 % de universidades usa IA, solo 26 % tiene estrategia</a></h3>
+        <ul class="resumen-list">
+          <li>Encuesta a 200 instituciones de 19 países (ago–oct 2025).</li>
+          <li>Uso concentrado en docencia y aprendizaje (~74 %), investigación (57 %) y administración (34 %).</li>
+          <li>Solo 8 % tiene presupuesto específico y 9 % mecanismos de evaluación de impacto.</li>
+          <li>Colombia aparece con 40 universidades según una columna de Semana (cifra no confirmada en el informe); datos autorreportados.</li>
+        </ul>
+        <p class="relevancia"><strong>Relevancia:</strong> Referente regional para comparar madurez institucional.</p>
+      </div>
+      <div class="meta">
+        <div><b>Categoría:</b> Informes de investigación</div>
+        <div><b>Fuente:</b> IFM Noticias (UNESCO IESALC y UNU-IAS)</div>
+        <div><b>Fecha:</b> 13 de octubre de 2026</div>
+      </div>
+      <div class="qr-box">
+        <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALwAAAC8AQAAAADqMvkGAAACBElEQVR4nL2Yy40dSQwEowa6Z3nw/DfreRC0IHXo0S6wGO1hRKiPRYAEP5lM9ilffvPx9Tt8wzDnHJhzOXDmzJ0553zH1e8NrVzkdhBevGjdjTEHuNf3hRvewpzvufpfw5vOa+70GuaPXP3WcDNR7rzvOX/m6ktDyuSdy60vaEq6GuN4wf88XnAxBm1bYkolMWnb1Rg2mFQANSRZjlHTSmya2rRRd/MgNFY/E7BtdmO0TydMa6EGsttzK6qlCQaKu/344NyEXDgzgXjLrHLiD/AO4+AV4PUebjZj0NIG2qYFm67Xip4x4cCdwHVerNYKpdgEKg88muzObiQ+ZELTJI3Ls0sS0EaTWkmX86gQjEAhcRuDHxwePrxW2jdUl/fH6w0E7hteyDww2eVd+iwPK58d2ebEACF89oEC2cXg0DACN8FkiO/ZxWC0qWCiDwC3MVhb6C9yfxbudj9qakNCg2nosi6JhWc1IbEPZy1zu1VjtUmKLusrfxXHJiSibGsfQjWl9FFAdLsftvkcKZ/pandrdcqQUy5Mr3CQu5zHUy4JRBoTd7kEP2f2X/EudBWDH6ERJtdag88+2d21z13ToCaNyioGf1BmwHEyTI9kusy7YtEEHr5iX1P7EC1i7D/qffuuzeXlC96B4WKWdWJrbftorEqyfg8C1iTRYMHlPXj+wn+fn5r16DR7UQAsAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88">
+        <a class="qr-link" href="https://ifmnoticias.com/educacion/la-ia-ya-esta-en-casi-todas-las-universidades-de-america-latina-pero-solo-una-de/" target="_blank" rel="noopener">ifmnoticias.com/educacion/la-ia-ya-esta-en-casi-todas-las-universidades-de-america-latina-pero-solo-una-de/</a>
+      </div>
+    </div>
+    <div class="preprints">
+      <h4>Otros preprints de octubre de 2026</h4>
+      <div class="pre-row"><p><strong>“Beyond Score Accuracy: Examining the Diagnostic Quality of LLM-Generated Structured Assessment in Higher Education” (Zhao, Jiao y Xu; arXiv, 7 oct).</strong> Compara las notas de instructores con las de tres LLM comerciales sobre 3.041 respuestas de estudiantes. La retroalimentación casi nunca identifica concepciones erróneas y su tono es positivo sin importar la calidad de la respuesta. Las notas son más confiables en temas procedimentales, así que hace falta supervisión humana. <a href="https://arxiv.org/abs/2610.09460" target="_blank" rel="noopener">arXiv</a></p><div class="qr-box"><img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABFElEQVR4nK2VsW0FMQxDnw7XUxt4/7FuA2oCpkia/KT4EeLKJiACFGmpwrczFy/nDWCqCrqHmqp6p+QVuAkDw7EJs+G4mIKJnmqm3iv5FTjMSf5U8gOY5mH2HAojUB2UFUe5wV+PBi84SJIYR0qSDcc96jGhHxqvtBAryBZ25JUWEyNiI9CG48J1hObgsXdaHGwSY0c7XxwkJQItfcGJYwIWu3xcMGdwWWeQlv0wsRBIWflCUGIiBW3zEZCQFSW7foiEgf78fqtZOAAZNF1MNjOZJHGkQOyVlnsa0gNm6+1F4nnQqMVuJt9MW21ULrLaDWXan9c2rWeVD+MoGMmsMnahAKVmUM6uHwUe4TZzdrvhH/b+B2utu13botkAAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88"><a class="qr-link" href="https://arxiv.org/abs/2610.09460" target="_blank" rel="noopener">arxiv.org/abs/2610.09460</a></div></div>
+      <div class="pre-row"><p><strong>“From Access to Realized Affordances: University Students’ Generative AI Engagement across Linguistic and Sociotechnical Contexts” (Li et al.; arXiv, 4 oct).</strong> Son entrevistas con 42 estudiantes de China, Japón y Mongolia. Concluye que tener acceso a la IA no garantiza que sea útil para aprender. Pesan el idioma, el contexto y el juicio evaluativo. Es relevante para el contexto hispanohablante. <a href="https://arxiv.org/abs/2610.05301" target="_blank" rel="noopener">arXiv</a></p><div class="qr-box"><img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8AQAAAACDZekTAAABCElEQVR4nK2VMW5EQQhDH6v05gZz/2P9G5gTOMXfJtkUGxKqGUtYyGCo8CXmwbd4A5iqmqlqeqrqnZRXIDFCFybxjmMKdQzD1HspPwHjnlPnNykvgPriYrYcOHEcPZ9ecJQb/Pw0rDgCDKg0YTcf2EKKJByt6iBBQiiYnR7YxkiWFWunx4gGD2I0u95im1hEIWs9sG3keKepJcsWQWuOKLZsh2Sl6QdzVYDj0Zyd5yTUwNX4zNJzt5wgO973RTaR0Jbjdj2RYT0f9wJJHO+8/5iqohi6B+kPe/30GMG17AuOFDDsfHvvdabFkc+qjjJtoDNqruVtUBCAhjlnuT/AWA7WznP1D3f/E6BaxwSxVgQoAAAAAElFTkSuQmCC" alt="Código QR hacia la fuente" width="88" height="88"><a class="qr-link" href="https://arxiv.org/abs/2610.05301" target="_blank" rel="noopener">arxiv.org/abs/2610.05301</a></div></div>
+    </div>
+  </div>
+
+  <div class="section-title" style="background:#0284C7"><span class="dot"></span> EVENTOS VIRTUALES DE NOVIEMBRE DE 2026</div>
+  <div class="events">
+    <div class="table-wrap"><table class="ev-table"><thead><tr><th>Fecha</th><th>Evento</th><th>Costo</th><th>Inscripción</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="ev-date">Mié 4 nov, 13:00 ET (60 min)</td>
+          <td>Belhaven University y Axio: “Equipping Faculty with AI: Scalable Hyper-Personalization”. Piloto de diálogo socrático con IA en cursos en línea.<div class="ev-note">Dirección de sitio web: <a href="https://axio.ai/webinars/equipping-faculty-with-ai" target="_blank" rel="noopener">axio.ai/webinars/equipping-faculty-with-ai</a></div></td>
+          <td>Gratuito</td>
+          <td class="ev-reg"><a href="https://us06web.zoom.us/webinar/register/WN_6n5P2iP6RLCZ32waCAvAzA" target="_blank" rel="noopener">Registro en Zoom</a></td>
+        </tr>
+        <tr>
+          <td class="ev-date">Jue 12 nov, 10:00–10:45 (hora del Reino Unido)</td>
+          <td>ECIS “AI in Education Webinar Series”: “Protecting Thinking, Preserving the Environment… and Innovating with AI?”.<div class="ev-note">Dirección de sitio web: <a href="https://ecis.org/event/ai-in-education-webinar-series-protecting-thinking/" target="_blank" rel="noopener">ecis.org/event/ai-in-education-webinar-series-protecting-thinking/</a></div></td>
+          <td>Gratuito</td>
+          <td class="ev-reg"><a href="https://us06web.zoom.us/meeting/register/lCrXulkdT5-MeyWiQFMueA" target="_blank" rel="noopener">Registro en Zoom</a></td>
+        </tr>
+        <tr>
+          <td class="ev-date">Mar 17 nov, 12:00–13:00 (hora del Reino Unido, según la página)</td>
+          <td>HEPI / Studiosity: “Using AI to make students smarter”.<div class="ev-note">Dirección de sitio web: <a href="https://www.hepi.ac.uk/events/hepi-studiosity-webinar-using-ai-to-make-students-smarter/" target="_blank" rel="noopener">www.hepi.ac.uk/events/hepi-studiosity-webinar-using-ai-to-make-students-smarter/</a></div></td>
+          <td>Gratuito</td>
+          <td class="ev-reg"><a href="https://us06web.zoom.us/webinar/register/WN_o580rY7TR2qehkye9sEWgQ" target="_blank" rel="noopener">Registro en Zoom</a></td>
+        </tr>
+        <tr>
+          <td class="ev-date">Mar 3 nov, 19:00 (hora de Chile)</td>
+          <td>Universidad de Las Américas (Chile), último webinar de su ciclo “IA y evaluación de aprendizajes”: “Estrategias focalizadas para la evaluación formativa”.<div class="ev-note">Dirección de sitio web: <a href="https://educacion.udla.cl/observatorio-sobre-el-uso-de-inteligencia-artificial-en-educacion/ia-en-educacion-ciclo-de-webinar-2026/" target="_blank" rel="noopener">educacion.udla.cl/observatorio-sobre-el-uso-de-inteligencia-artificial-en-educacion/ia-en-educacion-ciclo-de-webinar-2026/</a></div></td>
+          <td>Confirmar costo en la página</td>
+          <td class="ev-reg"><a href="https://udla.zoom.us/webinar/register/WN_O3soW9HcRFeT32vyeECIPQ" target="_blank" rel="noopener">Registro en Zoom</a></td>
+        </tr>
+        <tr>
+          <td class="ev-date">Mié 4 y jue 5 nov (virtual)</td>
+          <td>Advance HE, Artificial Intelligence Symposium.<div class="ev-note">Dirección de sitio web: <a href="https://advance-he.ac.uk/programmes-events/artificial-intelligence-symposium/" target="_blank" rel="noopener">advance-he.ac.uk/programmes-events/artificial-intelligence-symposium/</a></div></td>
+          <td>Confirmar costo en la página</td>
+          <td class="ev-reg"><a href="https://my.advance-he.ac.uk/portal/events/details/?id=ef6a168f-eb55-f111-bec7-6045bdc20a6a" target="_blank" rel="noopener">Inscripción</a></td>
+        </tr>
+      </tbody></table></div>
+  </div>
+  <div class="footer">
+    <div class="ideas">
+      <h4>Ideas clave del mes</h4>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>La evidencia pedagógica converge: la IA ayuda a consolidar, pero puede reemplazar el pensamiento inicial (Minnesota, Frontiers, Inside Higher Ed).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>Las políticas generales generan incertidumbre estudiantil; se requieren reglas por programa y curso (MDPI).</span></div>
+        <div class="idea-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span>La formación docente escala mediante modelos de réplica y alianzas (Tec de Monterrey, Querétaro) y plataformas abiertas de buenas prácticas (UNESCO IESALC HEILAB).</span></div>
+    </div>
+    <div class="why">
+      <h4 style="color:#fff;">¿Por qué importa?</h4>
+      <p>Estos hallazgos orientan decisiones institucionales informadas para aprovechar el potencial de la IA y minimizar riesgos académicos, éticos y pedagógicos.</p>
+      <div class="why-cta">¡Explora, infórmate y compara! Escanea los códigos QR para ampliar cada hallazgo.</div>
+    </div>
+    <div class="cats">
+      <h4>Secciones</h4>
+        <div class="cat-row"><span class="cat-swatch" style="background:#4F46E5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span>Artículos y noticias</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#16A34A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></span><span>Papers e informes de investigación</span></div>
+        <div class="cat-row"><span class="cat-swatch" style="background:#0284C7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span>Eventos virtuales de noviembre de 2026</span></div>
+    </div>
+  </div>
+  <div class="bottom-note">Vigía IA Gen — documento interno de circulación entre colegas. Fuente base: informe Vigía IAgen, Universidad de los Andes — DIDACTA / Conecta-TE.</div>
+</div>
